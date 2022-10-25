@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import com.jack.lightmeter.R.*
+import kotlin.math.sqrt
 
 class MainActivity : AppCompatActivity(), SensorEventListener {
     var sensorManager:SensorManager?= null
@@ -35,15 +36,16 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
-        if(event!!.values[0] > 40){
+        if(event!!.values[0] > 0){
             var lx:Float
             lx = event!!.values[0]
-            tv1?.text = lx.toString() + "lx"
+            var ts:Float
+            ts = sqrt((1f * ((lx * 100f)/12.5f )))
+            tv1?.text = ts.toString() + " fstop"
         }
     }
 
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
-        TODO("Not yet implemented")
     }
 
 
