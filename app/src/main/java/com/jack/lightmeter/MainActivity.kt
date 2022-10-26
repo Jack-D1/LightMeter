@@ -16,18 +16,21 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     var sensorManager:SensorManager?= null
     var sensor:Sensor?=null
     var tv1:TextView?=null
+    var tv2:TextView?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_main)
-        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         sensor = sensorManager?.getDefaultSensor(Sensor.TYPE_LIGHT)
         tv1 = findViewById(id.text)
+        tv2 = findViewById(id.text_lux)
+
 
     }
 
     override fun onResume() {
         super.onResume()
-        sensorManager?.registerListener(this,sensor,SensorManager.SENSOR_DELAY_NORMAL)
+        sensorManager?.registerListener(this,sensor,SensorManager.SENSOR_DELAY_FASTEST)
     }
 
     override fun onPause(){
@@ -40,8 +43,9 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             var lx:Float
             lx = event!!.values[0]
             var ts:Float
-            ts = sqrt((1f * ((lx * 100f)/12.5f )))
-            tv1?.text = ts.toString() + " fstop"
+            ts = (((1.4f * 1.4f) * 250f)) / (lx * 1600f)
+            tv1?.text = ts.toString() + " seconds"
+            tv2?.text = lx.toString() + "lx"
         }
     }
 
