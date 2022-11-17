@@ -1,52 +1,50 @@
 package com.jack.lightmeter
 
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.View
 import android.widget.*
-import android.widget.AdapterView.OnItemSelectedListener
-import com.jack.lightmeter.R.*
+import androidx.appcompat.app.AppCompatActivity
 import kotlin.math.abs
 import kotlin.math.log
-import kotlin.math.sqrt
 
-class MainActivity : AppCompatActivity(), SensorEventListener {
-    var sensorManager:SensorManager?= null
-    var sensor:Sensor?=null
-    var tv1:TextView?=null
-    var tv2:TextView?=null
-    var tv3:TextView?=null
-    var textConstant:TextView?=null
+class ShutterPriority : AppCompatActivity(), SensorEventListener {
+    var sensorManager: SensorManager?= null
+    var sensor: Sensor?=null
+    var tv1: TextView?=null
+    var tv2: TextView?=null
+    var tv3: TextView?=null
+    var textConstant: TextView?=null
     var c:Int?=null
     var ISO:Int?=null
-    var Aperture:Float?=null
+    var ShutterSpeed:Float?=null
     val ShutterSpeeds = listOf<Float>(8f,4f,2f,1f,0.5f,0.25f,0.125f,0.066f,0.033f,0.0166f,0.008f,0.004f, 0.002f, 0.001f,0.0005f,0.00025f,0.000125f)
+    val ReadableShutterSpeeds = listOf<String>("8","4","2", "1", "0.5", "1/4", "1/8", "1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000","1/8000")
     val ISOs = listOf<String>("50", "100","200", "400", "800", "1600", "3200", "6400", "12800", "25600")
-    val Apertures = listOf<String>("1.0","1.2", "1.4", "2.0", "2.8", "3.2", "3.5", "4.0", "4.5", "5.0", "5.6", "6.3", "7.1", "8.0", "9.0", "10.0", "11.0", "13.0", "14.0", "16.0", "18.0", "20.0", "22.0","32.0")
+    val Apertures = listOf<Float>(1.0f,1.2f, 1.4f, 2.0f, 2.8f, 3.2f, 3.5f, 4.0f, 4.5f, 5.0f, 5.6f, 6.3f, 7.1f, 8.0f, 9.0f, 10.0f, 11.0f, 13.0f, 14.0f, 16.0f, 18.0f, 20.0f, 22.0f,32.0f)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(layout.activity_main)
+        setContentView(R.layout.shutter_priority)
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         sensor = sensorManager?.getDefaultSensor(Sensor.TYPE_LIGHT)
-        tv1 = findViewById(id.text)
-        tv2 = findViewById(id.text_lux)
-        tv3 = findViewById(id.text_ev)
-        textConstant = findViewById(id.text_constant)
+        tv1 = findViewById(R.id.text)
+        tv2 = findViewById(R.id.text_lux)
+        tv3 = findViewById(R.id.text_ev)
+        textConstant = findViewById(R.id.text_constant)
         ISO = 50
-        Aperture = 1.0f
-        val spinnerISO = findViewById<Spinner>(id.ISO)
-        val spinnerAperture = findViewById<Spinner>(id.APERTURE)
+        ShutterSpeed = 8f
+        val spinnerISO = findViewById<Spinner>(R.id.ISO)
+        val spinnerShutter = findViewById<Spinner>(R.id.SHUTTER)
         if(spinnerISO != null){
             val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item,ISOs)
             spinnerISO.adapter = adapter
-            spinnerISO.onItemSelectedListener = object :AdapterView.OnItemSelectedListener {
+            spinnerISO.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                     ISO = ISOs[position].toInt()
                 }
@@ -56,13 +54,12 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 }
             }
         }
-
-        if(spinnerAperture != null){
-            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, Apertures)
-            spinnerAperture.adapter = adapter
-            spinnerAperture.onItemSelectedListener = object :AdapterView.OnItemSelectedListener {
+        if(spinnerShutter != null){
+            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, ReadableShutterSpeeds)
+            spinnerShutter.adapter = adapter
+            spinnerShutter.onItemSelectedListener = object :AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                    Aperture = Apertures[position].toFloat()
+                    ShutterSpeed = ShutterSpeeds[position].toFloat()
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
@@ -71,9 +68,9 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             }
         }
         c = 100
-        var sb:SeekBar = findViewById(id.constant)
+        var sb: SeekBar = findViewById(R.id.constant)
         sb.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
-            override fun onProgressChanged(seek: SeekBar,progress: Int, fromUser: Boolean) {
+            override fun onProgressChanged(seek: SeekBar, progress: Int, fromUser: Boolean) {
                 // write custom code for progress is changed
             }
 
@@ -87,9 +84,9 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 c = sb.progress
             }
         })
-        val button:Button = findViewById(id.ChangeSwitch)
+        val button:Button = findViewById(R.id.ChangeSwitch)
         button.setOnClickListener{
-            val intent = Intent(this@MainActivity, ShutterPriority::class.java)
+            val intent = Intent(this@ShutterPriority, MainActivity::class.java)
             startActivity(intent)
         }
     }
@@ -109,16 +106,12 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             var lx:Float
             var EV:Float
             lx = event!!.values[0]
-            var ts:Float
-            ts = (((Aperture!! * Aperture!!) * c!!)) / (lx * ISO!!.toFloat())
-            EV = log((Aperture!! * Aperture!!)/ ts.toDouble(),2.0).toFloat()
-            var cloestTs: Float? = ShutterSpeeds.closestValue(ts)
-            if(cloestTs!! >= 0.5f){
-                tv1?.text = cloestTs.toString() + " seconds"
-            }else{
-                var denom:Float = Math.ceil(1.0 / cloestTs).toFloat()
-                tv1?.text = "1/"+denom.toString() + "th of a second"
-            }
+            var n:Float
+            n = Math.sqrt(((ShutterSpeed!! * lx* ISO!!) / c!!).toDouble()).toFloat()
+            EV = log((n * n).toDouble()/ ShutterSpeed!!.toDouble(),2.0).toFloat()
+            var cloestN: Float? = Apertures.closestValue(n)
+            tv1?.text = "f/" + cloestN.toString()
+
 
             tv2?.text = lx.toString() + "lx"
             tv3?.text = "EV " + EV.toString()
@@ -130,7 +123,4 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
     // Find the shutter speed closest to the one we meter to
     fun List<Float>.closestValue(value: Float) = minByOrNull { abs(value - it) }
-
 }
-
-
