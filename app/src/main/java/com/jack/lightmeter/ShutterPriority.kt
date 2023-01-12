@@ -16,29 +16,27 @@ import kotlin.math.log
 class ShutterPriority : AppCompatActivity(), SensorEventListener {
     var sensorManager: SensorManager?= null
     var sensor: Sensor?=null
+    var CameraObject:CameraSettings?=null
     var tv1: TextView?=null
     var tv2: TextView?=null
     var tv3: TextView?=null
-    var textConstant: TextView?=null
-    var c:Int?=null
-    var ISO:Int?=null
-    var ShutterSpeed:Float?=null
     val ShutterSpeeds = listOf<Float>(8f,4f,2f,1f,0.5f,0.25f,0.125f,0.066f,0.033f,0.0166f,0.008f,0.004f, 0.002f, 0.001f,0.0005f,0.00025f,0.000125f)
     val ReadableShutterSpeeds = listOf<String>("8","4","2", "1", "0.5", "1/4", "1/8", "1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000","1/8000")
     val ISOs = listOf<String>("50", "100","200", "400", "800", "1600", "3200", "6400", "12800", "25600")
-    val Apertures = listOf<Float>(1.0f,1.2f, 1.4f, 2.0f, 2.8f, 3.2f, 3.5f, 4.0f, 4.5f, 5.0f, 5.6f, 6.3f, 7.1f, 8.0f, 9.0f, 10.0f, 11.0f, 13.0f, 14.0f, 16.0f, 18.0f, 20.0f, 22.0f,32.0f)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.shutter_priority)
+        //Get Camera Settings object from Aperture Priority activity
+        CameraObject = if(savedInstanceState?.get("Camera") != null){
+            savedInstanceState?.get("Camera") as CameraSettings?
+        }else {
+            CameraSettings(8f,0f,50)
+        }
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         sensor = sensorManager?.getDefaultSensor(Sensor.TYPE_LIGHT)
         tv1 = findViewById(R.id.text)
         tv2 = findViewById(R.id.text_lux)
         tv3 = findViewById(R.id.text_ev)
-        textConstant = findViewById(R.id.text_constant)
-        ISO = 50
-        ShutterSpeed = 8f
         val spinnerISO = findViewById<Spinner>(R.id.ISO)
         val spinnerShutter = findViewById<Spinner>(R.id.SHUTTER)
         if(spinnerISO != null){
@@ -46,7 +44,7 @@ class ShutterPriority : AppCompatActivity(), SensorEventListener {
             spinnerISO.adapter = adapter
             spinnerISO.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                    ISO = ISOs[position].toInt()
+                    CameraObject?.iso = ISOs[position].toInt()
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
@@ -59,7 +57,7 @@ class ShutterPriority : AppCompatActivity(), SensorEventListener {
             spinnerShutter.adapter = adapter
             spinnerShutter.onItemSelectedListener = object :AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                    ShutterSpeed = ShutterSpeeds[position].toFloat()
+                    CameraObject?.shutterSpeed = ShutterSpeeds[position].toFloat()
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>) {
@@ -67,26 +65,10 @@ class ShutterPriority : AppCompatActivity(), SensorEventListener {
                 }
             }
         }
-        c = 100
-        var sb: SeekBar = findViewById(R.id.constant)
-        sb.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
-            override fun onProgressChanged(seek: SeekBar, progress: Int, fromUser: Boolean) {
-                // write custom code for progress is changed
-            }
-
-            override fun onStartTrackingTouch(seek: SeekBar) {
-                // write custom code for progress is started
-            }
-
-            override fun onStopTrackingTouch(seek: SeekBar) {
-                // write custom code for progress is stopped
-                textConstant?.text = "Constant " + sb.progress
-                c = sb.progress
-            }
-        })
         val button:Button = findViewById(R.id.ChangeSwitch)
         button.setOnClickListener{
             val intent = Intent(this@ShutterPriority, MainActivity::class.java)
+            intent.putExtra("Camera",CameraObject)
             startActivity(intent)
         }
     }
@@ -104,17 +86,11 @@ class ShutterPriority : AppCompatActivity(), SensorEventListener {
     override fun onSensorChanged(event: SensorEvent?) {
         if(event!!.values[0] > 0){
             var lx:Float
-            var EV:Float
             lx = event!!.values[0]
-            var n:Float
-            n = Math.sqrt(((ShutterSpeed!! * lx* ISO!!) / c!!).toDouble()).toFloat()
-            EV = log((n * n).toDouble()/ ShutterSpeed!!.toDouble(),2.0).toFloat()
-            var cloestN: Float? = Apertures.closestValue(n)
-            tv1?.text = "f/" + cloestN.toString()
-
-
+            CameraObject?.updateApertureInSP(lx)
+            tv1?.text = "f/" + CameraObject?.aperture.toString()
             tv2?.text = lx.toString() + "lx"
-            tv3?.text = "EV " + EV.toString()
+            tv3?.text = "EV " + CameraObject?.ev.toString()
         }
     }
 

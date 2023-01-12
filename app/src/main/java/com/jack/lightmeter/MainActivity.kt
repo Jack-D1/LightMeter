@@ -30,9 +30,14 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     val ISOs = listOf<String>("50", "100","200", "400", "800", "1600", "3200", "6400", "12800", "25600")
     val Apertures = listOf<String>("1.0","1.2", "1.4", "2.0", "2.8", "3.2", "3.5", "4.0", "4.5", "5.0", "5.6", "6.3", "7.1", "8.0", "9.0", "10.0", "11.0", "13.0", "14.0", "16.0", "18.0", "20.0", "22.0","32.0")
     override fun onCreate(savedInstanceState: Bundle?) {
-        CameraObject = CameraSettings(0f, 0f, 0);
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_main)
+        //Get Camera Settings object from Aperture Priority activity
+        CameraObject = if(savedInstanceState?.get("Camera") != null){
+            savedInstanceState?.get("Camera") as CameraSettings?
+        }else {
+            CameraSettings(0f, 1.0f, 50);
+        }
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         sensor = sensorManager?.getDefaultSensor(Sensor.TYPE_LIGHT)
         tv1 = findViewById(id.text)
@@ -71,6 +76,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         val button:Button = findViewById(id.ChangeSwitch)
         button.setOnClickListener{
             val intent = Intent(this@MainActivity, ShutterPriority::class.java)
+            intent.putExtra("Camera",CameraObject)
             startActivity(intent)
         }
     }

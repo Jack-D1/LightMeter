@@ -1,9 +1,10 @@
 package com.jack.lightmeter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class CameraSettings {
+public class CameraSettings implements Serializable {
     private Float ShutterSpeed;
     private Float Aperture;
     private Integer ISO;
@@ -14,6 +15,10 @@ public class CameraSettings {
 
     public Integer getCalibrationConstant() {
         return CalibrationConstant;
+    }
+
+    public Float getShutterSpeed() {
+        return ShutterSpeed;
     }
 
     public void setCalibrationConstant(Integer calibrationConstant) {
@@ -36,6 +41,7 @@ public class CameraSettings {
         this.CalibrationConstant = 150;
         //List of known Valid Shutter Speeds, use this for rounding to closest. Allow user to define custom values by allowing them to add to this list.
         this.ValidShutterSpeeds = new ArrayList<>(Arrays.asList(8f,4f,2f,1f,0.5f,0.25f,0.125f,0.066f,0.033f,0.0166f,0.008f,0.004f, 0.002f, 0.001f,0.0005f,0.00025f,0.000125f));
+        this.ValidApertures = new ArrayList<>(Arrays.asList(1.0f,1.2f, 1.4f, 2.0f, 2.8f, 3.2f, 3.5f, 4.0f, 4.5f, 5.0f, 5.6f, 6.3f, 7.1f, 8.0f, 9.0f, 10.0f, 11.0f, 13.0f, 14.0f, 16.0f, 18.0f, 20.0f, 22.0f,32.0f));
     }
 
 
