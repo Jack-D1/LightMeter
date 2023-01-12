@@ -78,11 +78,8 @@ public class CameraSettings implements Serializable {
         // As prescribed by Equations for relation from camera settings to EV
         Float ts;
         ts = (((this.Aperture * this.Aperture) * this.CalibrationConstant)) / (Lux * this.ISO);
-        // Get the closest valid shutter speed
-        //TODO: Write own minByOrNull to get closest valid shutter speed
-        ts = ts;
-        // Update local shutter speed
-        this.ShutterSpeed = ts;
+        // Update local shutter speed & Get the closest valid shutter speed
+        this.ShutterSpeed = this.getClosestValue(this.ValidShutterSpeeds, ts);
         // Update local EV
         this.updateEV();
     }
@@ -92,14 +89,25 @@ public class CameraSettings implements Serializable {
         // As prescribed by Equations for relation from camera settings to EV
         Double aper;
         aper = Math.sqrt(this.ShutterSpeed * (lux * this.ISO / this.CalibrationConstant));
-        //Get the closest valid Aperture
-        //TODO: Write own minByOrNull to get closest valid Aperture
-        aper = aper;
-        // Update local Aperture
-        this.Aperture = aper.floatValue();
+        // Update local Aperture & get closest valid aperture
+        this.Aperture = this.getClosestValue(this.ValidApertures, aper.floatValue());
         // Update local EV
         this.updateEV();
     }
 
+    private Float getClosestValue(ArrayList<Float> list, Float val){
+        Float firstValue = list.get(0);
+        Float currentDifference = Math.abs(firstValue - val);
+        int index = 0;
+        for(int i = 1; i < list.size(); i++){
+            Float delta = Math.abs(list.get(i) - val);
+            if(delta < currentDifference){
+                currentDifference = delta;
+                index = i;
+            }
+        }
+
+        return list.get(index);
+    }
 
 }
