@@ -69,7 +69,7 @@ public class CameraSettings implements Serializable {
         if (this.ShutterSpeed >= 0.5f) {
             return this.ShutterSpeed.toString() + " Seconds";
         }else{
-            return "1/" + this.ShutterSpeed.toString() + "th of a Second";
+            return "1/" + Math.ceil(1 / this.ShutterSpeed) + "th of a Second";
         }
     }
 
@@ -78,7 +78,7 @@ public class CameraSettings implements Serializable {
         // As prescribed by Equations for relation from camera settings to EV
         Float ts;
         ts = (((this.Aperture * this.Aperture) * this.CalibrationConstant)) / (Lux * this.ISO);
-        // Update local shutter speed & Get the closest valid shutter speed
+        // Update local shutter speed & Get the closest valid shutter speed, divide it into one for the fractional form
         this.ShutterSpeed = this.getClosestValue(this.ValidShutterSpeeds, ts);
         // Update local EV
         this.updateEV();

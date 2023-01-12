@@ -96,7 +96,5 @@ class ShutterPriority : AppCompatActivity(), SensorEventListener {
 
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
     }
-
-    // Find the shutter speed closest to the one we meter to
-    fun List<Float>.closestValue(value: Float) = minByOrNull { abs(value - it) }
+    
 }
