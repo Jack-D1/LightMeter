@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     var sensorManager:SensorManager?= null
     var sensor:Sensor?=null
     var CameraObject:CameraSettings?=null
-    // Aperture Text Box
+    // Shutter Speed Text Box
     var tv1:TextView?=null
     // Lux Text Representation
     var tv2:TextView?=null

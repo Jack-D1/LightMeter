@@ -17,8 +17,11 @@ class ShutterPriority : AppCompatActivity(), SensorEventListener {
     var sensorManager: SensorManager?= null
     var sensor: Sensor?=null
     var CameraObject:CameraSettings?=null
+    // Aperture Text Box
     var tv1: TextView?=null
+    // Lux text representation
     var tv2: TextView?=null
+    //EV text
     var tv3: TextView?=null
     val ShutterSpeeds = listOf<Float>(8f,4f,2f,1f,0.5f,0.25f,0.125f,0.066f,0.033f,0.0166f,0.008f,0.004f, 0.002f, 0.001f,0.0005f,0.00025f,0.000125f)
     val ReadableShutterSpeeds = listOf<String>("8","4","2", "1", "0.5", "1/4", "1/8", "1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000","1/8000")
@@ -96,5 +99,5 @@ class ShutterPriority : AppCompatActivity(), SensorEventListener {
 
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
     }
-    
+
 }
