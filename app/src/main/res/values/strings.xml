@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">LightMeter</string>
+    <string name="iso_string">ISO</string>
+    <string name="aperture_string">Aperture</string>
+    <string name="shutter_string">Shutter Speed</string>
 </resources>
