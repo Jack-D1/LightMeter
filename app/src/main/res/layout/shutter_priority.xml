@@ -44,11 +44,11 @@
         />
 
     <TextView
-        android:id="@+id/aperturetext"
+        android:id="@+id/shuttertext"
         android:layout_width="107dp"
         android:layout_height="35dp"
         android:layout_marginBottom="200dp"
-        android:text="Shutter Speed"
+        android:text="@string/shutter_string"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.94"
@@ -61,7 +61,7 @@
         android:layout_width="107dp"
         android:layout_height="35dp"
         android:layout_marginBottom="200dp"
-        android:text="ISO"
+        android:text="@string/iso_string"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.052"
