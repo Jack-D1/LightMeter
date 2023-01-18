@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         setContentView(layout.activity_main)
         //Get Camera Settings object from Aperture Priority activity
         CameraObject = if(savedInstanceState?.get("Camera") != null){
-            savedInstanceState?.get("Camera") as CameraSettings?
+            savedInstanceState.get("Camera") as CameraSettings?
         }else {
             CameraSettings(0f, 1.0f, 50);
         }
@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         if(event!!.values[0] > 0){
             // Setup the variable lx to hold the currently measured Lux measurement
             var lx:Float
-            lx = event!!.values[0]
+            lx = event.values[0]
 
             //Tell the camera settings object to update the shutter speed it holds
             CameraObject?.updateShutterSpeedInAP(lx)

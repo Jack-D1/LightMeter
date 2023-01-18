@@ -31,7 +31,7 @@ class ShutterPriority : AppCompatActivity(), SensorEventListener {
         setContentView(R.layout.shutter_priority)
         //Get Camera Settings object from Aperture Priority activity
         CameraObject = if(savedInstanceState?.get("Camera") != null){
-            savedInstanceState?.get("Camera") as CameraSettings?
+            savedInstanceState.get("Camera") as CameraSettings?
         }else {
             CameraSettings(8f,0f,50)
         }
@@ -89,7 +89,7 @@ class ShutterPriority : AppCompatActivity(), SensorEventListener {
     override fun onSensorChanged(event: SensorEvent?) {
         if(event!!.values[0] > 0){
             var lx:Float
-            lx = event!!.values[0]
+            lx = event.values[0]
             CameraObject?.updateApertureInSP(lx)
             tv1?.text = "f/" + CameraObject?.aperture.toString()
             tv2?.text = lx.toString() + "lx"
