@@ -26,7 +26,7 @@ public class CameraSettings implements Serializable {
     }
 
     public double getEV() {
-        return EV;
+        return Math.round(EV);
     }
 
     public void updateEV(){
@@ -69,7 +69,7 @@ public class CameraSettings implements Serializable {
         if (this.ShutterSpeed >= 0.5f) {
             return this.ShutterSpeed.toString() + " Seconds";
         }else{
-            return "1/" + Math.ceil(1 / this.ShutterSpeed) + "th of a Second";
+            return "1/" + Math.round(1 / this.ShutterSpeed) + "th of a Second";
         }
     }
 
