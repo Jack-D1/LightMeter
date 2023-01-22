@@ -38,21 +38,24 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         tv1 = findViewById(id.text)
         tv2 = findViewById(id.text_lux)
         tv3 = findViewById(id.text_ev)
-        val spinnerISO = findViewById<Spinner>(id.ISO)
-        val spinnerAperture = findViewById<Spinner>(id.APERTURE)
-        if(spinnerISO != null){
-            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item,ISOs)
-            spinnerISO.adapter = adapter
-            spinnerISO.onItemSelectedListener = object :AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                    CameraObject?.iso = ISOs[position].toInt()
-                }
 
-                override fun onNothingSelected(parent: AdapterView<*>) {
-                    // write code to perform some action
-                }
-            }
-        }
+        val IsoDropdown = findViewById<MaterialButton>(id.ISO_Dropdown_Button)
+        
+//        val spinnerISO = findViewById<Spinner>(id.ISO)
+        val spinnerAperture = findViewById<Spinner>(id.APERTURE)
+//        if(spinnerISO != null){
+//            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item,ISOs)
+//            spinnerISO.adapter = adapter
+//            spinnerISO.onItemSelectedListener = object :AdapterView.OnItemSelectedListener {
+//                override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+//                    CameraObject?.iso = ISOs[position].toInt()
+//                }
+//
+//                override fun onNothingSelected(parent: AdapterView<*>) {
+//                    // write code to perform some action
+//                }
+//            }
+//        }
 
         if(spinnerAperture != null){
             val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, Apertures)
