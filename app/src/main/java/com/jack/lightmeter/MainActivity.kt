@@ -1,8 +1,6 @@
 package com.jack.lightmeter
 
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -11,11 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
-import android.widget.AdapterView.OnItemSelectedListener
+import com.google.android.material.button.MaterialButton
 import com.jack.lightmeter.R.*
-import kotlin.math.abs
-import kotlin.math.log
-import kotlin.math.sqrt
 
 class MainActivity : AppCompatActivity(), SensorEventListener {
     var sensorManager:SensorManager?= null
