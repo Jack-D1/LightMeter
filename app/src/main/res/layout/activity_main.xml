@@ -6,6 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
+
+
+
     <com.google.android.material.card.MaterialCardView
         android:layout_width="143dp"
         android:layout_height="152dp"
@@ -19,17 +23,25 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/text_ISO"
-                android:layout_width="107dp"
-                android:layout_height="35dp"
-                android:text="@string/iso_string"
-                android:textAppearance="?attr/textAppearanceTitleLarge"/>
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="62dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="16dp"
+                android:text="@string/iso_string" />
 
-            <Spinner
-                android:id="@+id/ISO"
-                android:layout_width="116dp"
-                android:layout_height="44dp" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/ISO_Dropdown_Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/show_iso_dd"
+                />
+
+<!--            <Spinner-->
+<!--                android:id="@+id/ISO"-->
+<!--                android:layout_width="116dp"-->
+<!--                android:layout_height="44dp" />-->
         </LinearLayout>
 
 
