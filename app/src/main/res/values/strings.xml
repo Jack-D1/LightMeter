@@ -3,4 +3,5 @@
     <string name="iso_string">ISO</string>
     <string name="aperture_string">Aperture</string>
     <string name="shutter_string">Shutter Speed</string>
+    <string name="show_iso_dd">Choose ISO</string>
 </resources>
