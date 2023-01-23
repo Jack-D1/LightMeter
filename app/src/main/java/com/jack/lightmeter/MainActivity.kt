@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             ISOpopup.show()
         }
         ISOpopup.setOnMenuItemClickListener { item ->
-            exposeISODropdown.text = item.title
+            exposeISODropdown.text = "ISO " + item.title
             CameraObject?.iso = item.title.toString().toInt()
             true
         }
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             AperturePopup.show()
         }
         AperturePopup.setOnMenuItemClickListener { item ->
-            exposeApertureDropdown.text = item.title
+            exposeApertureDropdown.text = "f/" + item.title
             CameraObject?.aperture = item.title.toString().toFloat()
             true
         }
