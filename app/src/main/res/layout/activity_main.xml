@@ -31,14 +31,36 @@
                 android:layout_margin="16dp"
                 android:text="@string/iso_string" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/ISO_Dropdown_Button"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/show_iso_dd"
-                />
+                android:layout_height="wrap_content">
 
-<!--            <Spinner-->
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/text_input_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Select an option"
+                    android:inputType="text"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/exposed_dropdown_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:hintEnabled="false">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/exposed_dropdown_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Option 1"
+                        style="@style/Widget.MaterialComponents.Button.TextButton" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <!--            <Spinner-->
 <!--                android:id="@+id/ISO"-->
 <!--                android:layout_width="116dp"-->
 <!--                android:layout_height="44dp" />-->

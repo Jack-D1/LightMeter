@@ -38,9 +38,15 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         tv1 = findViewById(id.text)
         tv2 = findViewById(id.text_lux)
         tv3 = findViewById(id.text_ev)
+        val exposedDropdownButton = findViewById<MaterialButton>(R.id.exposed_dropdown_button)
+        exposedDropdownButton.setOnClickListener {
+            val popup = PopupMenu(this, it )
+            val menu = popup.menu
+            menu.add("Menu item 1")
+            menu.add("Menu item 2")
+            popup.show()
+        }
 
-        val IsoDropdown = findViewById<MaterialButton>(id.ISO_Dropdown_Button)
-        
 //        val spinnerISO = findViewById<Spinner>(id.ISO)
         val spinnerAperture = findViewById<Spinner>(id.APERTURE)
 //        if(spinnerISO != null){
