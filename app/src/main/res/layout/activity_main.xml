@@ -31,33 +31,12 @@
                 android:layout_margin="16dp"
                 android:text="@string/iso_string" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_input_layout"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/exposed_dropdown_button"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/text_input_edit_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Select an option"
-                    android:inputType="text"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/exposed_dropdown_menu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:hintEnabled="false">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/exposed_dropdown_button"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Option 1"
-                        style="@style/Widget.MaterialComponents.Button.TextButton" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:text="@string/show_iso_dd"
+                style="@style/Widget.MaterialComponents.Button.TextButton" />
 
 
             <!--            <Spinner-->
