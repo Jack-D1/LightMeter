@@ -12,7 +12,7 @@ public class CameraSettings implements Serializable {
     private double EV;
     private ArrayList<Float> ValidShutterSpeeds;
     private ArrayList<Float> ValidApertures;
-
+    private ArrayList<Integer> ValidISOs;
     public Integer getCalibrationConstant() {
         return CalibrationConstant;
     }
@@ -42,8 +42,16 @@ public class CameraSettings implements Serializable {
         //List of known Valid Shutter Speeds, use this for rounding to closest. Allow user to define custom values by allowing them to add to this list.
         this.ValidShutterSpeeds = new ArrayList<>(Arrays.asList(8f,4f,2f,1f,0.5f,0.25f,0.125f,0.066f,0.033f,0.0166f,0.008f,0.004f, 0.002f, 0.001f,0.0005f,0.00025f,0.000125f));
         this.ValidApertures = new ArrayList<>(Arrays.asList(1.0f,1.2f, 1.4f, 2.0f, 2.8f, 3.2f, 3.5f, 4.0f, 4.5f, 5.0f, 5.6f, 6.3f, 7.1f, 8.0f, 9.0f, 10.0f, 11.0f, 13.0f, 14.0f, 16.0f, 18.0f, 20.0f, 22.0f,32.0f));
+        this.ValidISOs = new ArrayList<>(Arrays.asList(50, 100,200, 400, 800, 1600, 3200, 6400, 12800, 25600));
     }
 
+    public ArrayList<Integer> getValidISOs() {
+        return ValidISOs;
+    }
+
+    public void setValidISOs(ArrayList<Integer> validISOs) {
+        ValidISOs = validISOs;
+    }
 
     public void setShutterSpeed(Float shutterSpeed) {
         ShutterSpeed = shutterSpeed;

@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     var tv2:TextView?=null
     // EV Text
     var tv3:TextView?=null
-    val ISOs = listOf<String>("50", "100","200", "400", "800", "1600", "3200", "6400", "12800", "25600")
     val Apertures = listOf<String>("1.0","1.2", "1.4", "2.0", "2.8", "3.2", "3.5", "4.0", "4.5", "5.0", "5.6", "6.3", "7.1", "8.0", "9.0", "10.0", "11.0", "13.0", "14.0", "16.0", "18.0", "20.0", "22.0","32.0")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,8 +39,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         tv3 = findViewById(id.text_ev)
         val exposedDropdownButton = findViewById<MaterialButton>(R.id.exposed_dropdown_button)
         val popup = PopupMenu(this, exposedDropdownButton )
-        for(iso in ISOs){
-            popup.menu.add(iso)
+        for(iso in CameraObject!!.validISOs){
+            popup.menu.add(iso.toString())
         }
         exposedDropdownButton.setOnClickListener {
             popup.show()
@@ -53,21 +52,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         }
 
 
-//        val spinnerISO = findViewById<Spinner>(id.ISO)
+
         val spinnerAperture = findViewById<Spinner>(id.APERTURE)
-//        if(spinnerISO != null){
-//            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item,ISOs)
-//            spinnerISO.adapter = adapter
-//            spinnerISO.onItemSelectedListener = object :AdapterView.OnItemSelectedListener {
-//                override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-//                    CameraObject?.iso = ISOs[position].toInt()
-//                }
-//
-//                override fun onNothingSelected(parent: AdapterView<*>) {
-//                    // write code to perform some action
-//                }
-//            }
-//        }
 
         if(spinnerAperture != null){
             val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, Apertures)
