@@ -5,4 +5,5 @@
     <string name="shutter_string">Shutter Speed</string>
     <string name="show_iso_dd">Choose ISO</string>
     <string name="show_aperture_dd">Choose Aperture</string>
+    <string name="change_mode_to_shutter_p">Switch to Shutter Priority</string>
 </resources>

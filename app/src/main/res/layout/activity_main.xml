@@ -122,7 +122,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="68dp"
         android:layout_marginTop="488dp"
-        android:text="Switch to Shutter Priority"
+        android:text="@string/change_mode_to_shutter_p"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
