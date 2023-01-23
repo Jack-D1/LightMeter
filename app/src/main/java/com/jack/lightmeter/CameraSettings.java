@@ -81,6 +81,14 @@ public class CameraSettings implements Serializable {
         }
     }
 
+    public ArrayList<Float> getValidApertures() {
+        return ValidApertures;
+    }
+
+    public void setValidApertures(ArrayList<Float> validApertures) {
+        ValidApertures = validApertures;
+    }
+
     // Update the currently stored Shutter Speed in Aperture Priority Mode
     public void updateShutterSpeedInAP(Float Lux){
         // As prescribed by Equations for relation from camera settings to EV

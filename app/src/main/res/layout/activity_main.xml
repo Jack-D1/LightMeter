@@ -6,48 +6,80 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
-
-
-
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="143dp"
-        android:layout_height="152dp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="8dp"
-        style="?attr/materialCardViewElevatedStyle">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView"
+            style="?attr/materialCardViewElevatedStyle"
+            android:layout_width="143dp"
+            android:layout_height="152dp"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textview.MaterialTextView
-                style="@style/TextAppearance.MaterialComponents.Headline6"
-                android:layout_width="62dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="16dp"
-                android:text="@string/iso_string" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/exposed_dropdown_button"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/show_iso_dd"
-                style="@style/Widget.MaterialComponents.Button.TextButton" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="16dp"
+                    android:text="@string/iso_string" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/expose_iso_dropdown_button"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/show_iso_dd" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
 
-            <!--            <Spinner-->
-<!--                android:id="@+id/ISO"-->
-<!--                android:layout_width="116dp"-->
-<!--                android:layout_height="44dp" />-->
-        </LinearLayout>
+        <com.google.android.material.card.MaterialCardView
+            style="?attr/materialCardViewElevatedStyle"
+            android:layout_width="143dp"
+            android:layout_height="152dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            app:layout_constraintEnd_toStartOf="@+id/text_lux"
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="16dp"
+                    android:text="@string/aperture_string" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/expose_aperture_dropdown_button"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/show_aperture_dd" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
 
 
-
-    </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:id="@+id/text"
@@ -82,34 +114,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.31"
-        />
-
-    <TextView
-        android:id="@+id/aperturetext"
-        android:layout_width="107dp"
-        android:layout_height="35dp"
-        android:layout_marginBottom="200dp"
-        android:text="Aperture"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.94"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.147" />
-
-   
-
-    <Spinner
-        android:id="@+id/APERTURE"
-        android:layout_width="116dp"
-        android:layout_height="44dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.969"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.157" />
+        app:layout_constraintVertical_bias="0.429" />
 
     <Button
         android:id="@+id/ChangeSwitch"

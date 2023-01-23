@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     var tv2:TextView?=null
     // EV Text
     var tv3:TextView?=null
-    val Apertures = listOf<String>("1.0","1.2", "1.4", "2.0", "2.8", "3.2", "3.5", "4.0", "4.5", "5.0", "5.6", "6.3", "7.1", "8.0", "9.0", "10.0", "11.0", "13.0", "14.0", "16.0", "18.0", "20.0", "22.0","32.0")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_main)
@@ -37,37 +36,35 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         tv1 = findViewById(id.text)
         tv2 = findViewById(id.text_lux)
         tv3 = findViewById(id.text_ev)
-        val exposedDropdownButton = findViewById<MaterialButton>(R.id.exposed_dropdown_button)
-        val popup = PopupMenu(this, exposedDropdownButton )
+        val exposeISODropdown = findViewById<MaterialButton>(R.id.expose_iso_dropdown_button)
+        val ISOpopup = PopupMenu(this, exposeISODropdown )
         for(iso in CameraObject!!.validISOs){
-            popup.menu.add(iso.toString())
+            ISOpopup.menu.add(iso.toString())
         }
-        exposedDropdownButton.setOnClickListener {
-            popup.show()
+        exposeISODropdown.setOnClickListener {
+            ISOpopup.show()
         }
-        popup.setOnMenuItemClickListener { item ->
-            exposedDropdownButton.text = item.title
+        ISOpopup.setOnMenuItemClickListener { item ->
+            exposeISODropdown.text = item.title
             CameraObject?.iso = item.title.toString().toInt()
             true
         }
 
 
-
-        val spinnerAperture = findViewById<Spinner>(id.APERTURE)
-
-        if(spinnerAperture != null){
-            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, Apertures)
-            spinnerAperture.adapter = adapter
-            spinnerAperture.onItemSelectedListener = object :AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                    CameraObject?.aperture = Apertures[position].toFloat()
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>) {
-                    // write code to perform some action
-                }
-            }
+        val exposeApertureDropdown = findViewById<MaterialButton>(R.id.expose_aperture_dropdown_button)
+        val AperturePopup = PopupMenu(this, exposeApertureDropdown)
+        for (Aperture in CameraObject!!.validApertures){
+            AperturePopup.menu.add(Aperture.toString())
         }
+        exposeApertureDropdown.setOnClickListener {
+            AperturePopup.show()
+        }
+        AperturePopup.setOnMenuItemClickListener { item ->
+            exposeApertureDropdown.text = item.title
+            CameraObject?.aperture = item.title.toString().toFloat()
+            true
+        }
+
 
         val button:Button = findViewById(id.ChangeSwitch)
         button.setOnClickListener{
