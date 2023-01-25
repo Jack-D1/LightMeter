@@ -7,9 +7,9 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.*
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.textview.MaterialTextView
 import com.jack.lightmeter.R.*
 
 class MainActivity : AppCompatActivity(), SensorEventListener {
@@ -17,11 +17,11 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     var sensor:Sensor?=null
     var CameraObject:CameraSettings?=null
     // Shutter Speed Text Box
-    var tv1:TextView?=null
+    var ShutterSpeedText:TextView?=null
     // Lux Text Representation
-    var tv2:TextView?=null
+    var LuxText:MaterialTextView?=null
     // EV Text
-    var tv3:TextView?=null
+    var EVText:MaterialTextView?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_main)
@@ -33,9 +33,9 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         }
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         sensor = sensorManager?.getDefaultSensor(Sensor.TYPE_LIGHT)
-        tv1 = findViewById(id.text)
-        tv2 = findViewById(id.text_lux)
-        tv3 = findViewById(id.text_ev)
+        ShutterSpeedText = findViewById(id.text)
+        LuxText = findViewById(id.text_lux)
+        EVText = findViewById(id.text_ev)
         val exposeISODropdown = findViewById<MaterialButton>(R.id.expose_iso_dropdown_button)
         val ISOpopup = PopupMenu(this, exposeISODropdown )
         for(iso in CameraObject!!.validISOs){
@@ -93,11 +93,11 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             //Tell the camera settings object to update the shutter speed it holds
             CameraObject?.updateShutterSpeedInAP(lx)
             // Get the formatted shutter speed
-            tv1?.text = CameraObject?.formattedShutterSpeed
+            ShutterSpeedText?.text = CameraObject?.formattedShutterSpeed
             // Show the lux reading
-            tv2?.text = lx.toString() + "lx"
+            LuxText?.text = lx.toString() + "lx"
             // Show the measured EV as calculated by the CameraSettings object
-            tv3?.text = "EV " + CameraObject?.ev
+            EVText?.text = "EV " + CameraObject?.ev
         }
     }
 
