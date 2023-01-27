@@ -5,19 +5,21 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.*
+import android.widget.Button
+import android.widget.PopupMenu
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
-import com.jack.lightmeter.R.*
+import com.jack.lightmeter.R.id
+import com.jack.lightmeter.R.layout
 
 class MainActivity : AppCompatActivity(), SensorEventListener {
     var sensorManager:SensorManager?= null
     var sensor:Sensor?=null
     var CameraObject:CameraSettings?=null
     // Shutter Speed Text Box
-    var ShutterSpeedText:TextView?=null
+    var ShutterSpeedText:MaterialTextView?=null
     // Lux Text Representation
     var LuxText:MaterialTextView?=null
     // EV Text
@@ -33,7 +35,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         }
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         sensor = sensorManager?.getDefaultSensor(Sensor.TYPE_LIGHT)
-        ShutterSpeedText = findViewById(id.text)
+        ShutterSpeedText = findViewById(id.ShutterSpeedReading)
         LuxText = findViewById(id.text_lux)
         EVText = findViewById(id.text_ev)
         val exposeISODropdown = findViewById<MaterialButton>(R.id.expose_iso_dropdown_button)
