@@ -6,7 +6,6 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
-import android.widget.Button
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
@@ -68,7 +67,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         }
 
 
-        val button:Button = findViewById(id.ChangeSwitch)
+        val button:MaterialButton = findViewById(id.ChangeSwitch)
         button.setOnClickListener{
             val intent = Intent(this@MainActivity, ShutterPriority::class.java)
             intent.putExtra("Camera",CameraObject)
