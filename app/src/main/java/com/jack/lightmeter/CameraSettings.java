@@ -3,6 +3,9 @@ package com.jack.lightmeter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 
 public class CameraSettings implements Serializable {
     private Float ShutterSpeed;
@@ -10,7 +13,7 @@ public class CameraSettings implements Serializable {
     private Integer ISO;
     private Integer CalibrationConstant;
     private double EV;
-    private ArrayList<Float> ValidShutterSpeeds;
+    private HashMap<String, Float> ValidShutterSpeeds;
     private ArrayList<Float> ValidApertures;
     private ArrayList<Integer> ValidISOs;
     public Integer getCalibrationConstant() {
@@ -40,9 +43,27 @@ public class CameraSettings implements Serializable {
         //We use 150 as during early testing it appeared to be the most accurate, will allow user to change the value in settings for this
         this.CalibrationConstant = 150;
         //List of known Valid Shutter Speeds, use this for rounding to closest. Allow user to define custom values by allowing them to add to this list.
-        this.ValidShutterSpeeds = new ArrayList<>(Arrays.asList(8f,4f,2f,1f,0.5f,0.25f,0.125f,0.066f,0.033f,0.0166f,0.008f,0.004f, 0.002f, 0.001f,0.0005f,0.00025f,0.000125f));
         this.ValidApertures = new ArrayList<>(Arrays.asList(1.0f,1.2f, 1.4f, 2.0f, 2.8f, 3.2f, 3.5f, 4.0f, 4.5f, 5.0f, 5.6f, 6.3f, 7.1f, 8.0f, 9.0f, 10.0f, 11.0f, 13.0f, 14.0f, 16.0f, 18.0f, 20.0f, 22.0f,32.0f));
         this.ValidISOs = new ArrayList<>(Arrays.asList(50, 100,200, 400, 800, 1600, 3200, 6400, 12800, 25600));
+         this.ValidShutterSpeeds = new HashMap<String, Float>() {{
+            put("8", 8f);
+            put("4", 4f);
+            put("2", 2f);
+            put("1", 1f);
+            put("1/2", 0.5f);
+            put("1/4", 0.25f);
+            put("1/8", 0.125f);
+            put("1/15", 0.066f);
+            put("1/30", 0.033f);
+            put("1/60", 0.017f);
+            put("1/125", 0.008f);
+            put("1/250", 0.004f);
+            put("1/500", 0.002f);
+            put("1/1000", 0.001f);
+            put("1/2000", 0.0005f);
+            put("1/4000", 0.00025f);
+            put("1/8000", 0.000125f);
+        }};
     }
 
     public ArrayList<Integer> getValidISOs() {
@@ -53,8 +74,8 @@ public class CameraSettings implements Serializable {
         ValidISOs = validISOs;
     }
 
-    public void setShutterSpeed(Float shutterSpeed) {
-        ShutterSpeed = shutterSpeed;
+    public void setShutterSpeed(String shutterSpeed) {
+        this.ShutterSpeed = this.ValidShutterSpeeds.get(shutterSpeed);
     }
 
     public Float getAperture() {
@@ -85,6 +106,33 @@ public class CameraSettings implements Serializable {
         return ValidApertures;
     }
 
+    public ArrayList<String> getReadableShutterSpeeds(){
+        ArrayList<String> readableShutterSpeeds = new ArrayList<String>(this.ValidShutterSpeeds.keySet());
+        Collections.sort(readableShutterSpeeds, new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                float shutterSpeed1 = convertShutterSpeedToFloat(s1);
+                float shutterSpeed2 = convertShutterSpeedToFloat(s2);
+                if (shutterSpeed1 < shutterSpeed2) {
+                    return 1;
+                } else if (shutterSpeed1 > shutterSpeed2) {
+                    return -1;
+                }
+                return 0;
+            }
+        });
+        return readableShutterSpeeds;
+    }
+    private float convertShutterSpeedToFloat(String shutterSpeed){
+        if (shutterSpeed.contains("/")) {
+            String[] parts = shutterSpeed.split("/");
+            float numerator = Float.parseFloat(parts[0]);
+            float denominator = Float.parseFloat(parts[1]);
+            return numerator / denominator;
+        } else {
+            return Float.parseFloat(shutterSpeed);
+        }
+    }
     public void setValidApertures(ArrayList<Float> validApertures) {
         ValidApertures = validApertures;
     }
@@ -95,7 +143,7 @@ public class CameraSettings implements Serializable {
         Float ts;
         ts = (((this.Aperture * this.Aperture) * this.CalibrationConstant)) / (Lux * this.ISO);
         // Update local shutter speed & Get the closest valid shutter speed, divide it into one for the fractional form
-        this.ShutterSpeed = this.getClosestValue(this.ValidShutterSpeeds, ts);
+        this.ShutterSpeed = this.getClosestValue(new ArrayList<Float>(this.ValidShutterSpeeds.values()), ts);
         // Update local EV
         this.updateEV();
     }

@@ -22,8 +22,6 @@ class ShutterPriority : AppCompatActivity(), SensorEventListener {
     var LuxText: MaterialTextView?=null
     //EV text
     var EVText: MaterialTextView?=null
-    val ShutterSpeeds = listOf<Float>(8f,4f,2f,1f,0.5f,0.25f,0.125f,0.066f,0.033f,0.0166f,0.008f,0.004f, 0.002f, 0.001f,0.0005f,0.00025f,0.000125f)
-    val ReadableShutterSpeeds = listOf<String>("8","4","2", "1", "0.5", "1/4", "1/8", "1/15", "1/30", "1/60", "1/125", "1/250", "1/500", "1/1000", "1/2000", "1/4000","1/8000")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.shutter_priority)
@@ -52,7 +50,19 @@ class ShutterPriority : AppCompatActivity(), SensorEventListener {
             true
         }
 
-
+        val exposeShutterDropdown = findViewById<MaterialButton>(R.id.expose_shutter_dropdown_button)
+        val ShutterPopup = PopupMenu(this,exposeShutterDropdown)
+        for(ShutterSpeed in CameraObject!!.readableShutterSpeeds){
+            ShutterPopup.menu.add(ShutterSpeed)
+        }
+        exposeShutterDropdown.setOnClickListener {
+            ShutterPopup.show()
+        }
+        ShutterPopup.setOnMenuItemClickListener { item ->
+            exposeShutterDropdown.text = item.title
+            CameraObject?.setShutterSpeed(item.title.toString())
+            true
+        }
 
         val button:Button = findViewById(R.id.ChangeSwitch)
         button.setOnClickListener{
