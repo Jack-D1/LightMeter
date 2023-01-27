@@ -6,4 +6,7 @@
     <string name="show_iso_dd">Click to Choose ISO</string>
     <string name="show_aperture_dd">Click to Choose Aperture</string>
     <string name="change_mode_to_shutter_p">Switch to Shutter Priority</string>
+    <string name="change_mode_to_aperture_p">Switch to Aperture Priority</string>
+    <string name="settings">Settings</string>
+    <string name="show_shutter_dd">Click to Choose Shutter Speed</string>
 </resources>
