@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <uses-feature android:name="android.hardware.sensor.light" android:required="true"></uses-feature>
+
+    <uses-feature
+        android:name="android.hardware.sensor.light"
+        android:required="true" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,6 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LightMeter"
         tools:targetApi="31">
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_settings" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -29,7 +37,7 @@
             android:name=".ShutterPriority"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.Shutter"/>
+                <action android:name="android.intent.action.Shutter" />
             </intent-filter>
         </activity>
     </application>

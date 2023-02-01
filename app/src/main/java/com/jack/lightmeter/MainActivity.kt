@@ -73,10 +73,18 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             intent.putExtra("Camera",CameraObject)
             startActivity(intent)
         }
+
+        val settingsButton:MaterialButton = findViewById(id.SettingsSwitch)
+        settingsButton.setOnClickListener {
+            val intent = Intent(this@MainActivity, SettingsActivity::class.java)
+            intent.putExtra("Camera", CameraObject)
+            startActivity(intent)
+        }
     }
 
     override fun onResume() {
         super.onResume()
+        System.out.println("Resumed Aperture Priority")
         sensorManager?.registerListener(this,sensor,SensorManager.SENSOR_DELAY_FASTEST)
     }
 

@@ -9,4 +9,14 @@
     <string name="change_mode_to_aperture_p">Switch to Aperture Priority</string>
     <string name="settings">Settings</string>
     <string name="show_shutter_dd">Click to Choose Shutter Speed</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="values_header">Custom Values</string>
+    <string name="calibration_header">Calibration Values</string>
+
+    <string name="calibration_constant">Calibration Constant</string>
+    <string name="iso_title">ISO</string>
+    <string name="add_iso">Add a Custom ISO Value</string>
+    <string name="edit_cc">Edit Calibration Constant</string>
 </resources>

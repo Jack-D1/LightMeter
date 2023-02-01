@@ -70,10 +70,18 @@ class ShutterPriority : AppCompatActivity(), SensorEventListener {
             intent.putExtra("Camera",CameraObject)
             startActivity(intent)
         }
+
+        val settingsButton:MaterialButton = findViewById(R.id.SettingsSwitch)
+        settingsButton.setOnClickListener {
+            val intent = Intent(this@ShutterPriority, SettingsActivity::class.java)
+            intent.putExtra("Camera", CameraObject)
+            startActivity(intent)
+        }
     }
 
     override fun onResume() {
         super.onResume()
+        System.out.println("Resumed Shutter Priority")
         sensorManager?.registerListener(this,sensor,SensorManager.SENSOR_DELAY_FASTEST)
     }
 
