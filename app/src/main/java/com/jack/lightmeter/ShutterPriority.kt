@@ -26,8 +26,8 @@ class ShutterPriority : AppCompatActivity(), SensorEventListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.shutter_priority)
         //Get Camera Settings object from Aperture Priority activity
-        CameraObject = if(savedInstanceState?.get("Camera") != null){
-            savedInstanceState.get("Camera") as CameraSettings?
+        CameraObject = if(intent.extras?.getSerializable("Camera") != null){
+            intent.extras?.getSerializable ("Camera") as CameraSettings?
         }else {
             CameraSettings(8f,0f,50)
         }

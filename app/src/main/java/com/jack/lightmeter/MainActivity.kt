@@ -27,8 +27,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_main)
         //Get Camera Settings object from Aperture Priority activity
-        CameraObject = if(savedInstanceState?.get("Camera") != null){
-            savedInstanceState.get("Camera") as CameraSettings?
+        CameraObject = if(intent.extras?.getSerializable("Camera") != null){
+            intent.extras?.getSerializable("Camera") as CameraSettings?
         }else {
             CameraSettings(0f, 1.0f, 50);
         }
@@ -84,7 +84,6 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
     override fun onResume() {
         super.onResume()
-        System.out.println("Resumed Aperture Priority")
         sensorManager?.registerListener(this,sensor,SensorManager.SENSOR_DELAY_FASTEST)
     }
 
