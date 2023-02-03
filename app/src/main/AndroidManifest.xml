@@ -17,6 +17,9 @@
         android:theme="@style/Theme.LightMeter"
         tools:targetApi="31">
         <activity
+            android:name=".CustomValuesActivity"
+            android:exported="false" />
+        <activity
             android:name=".SettingsActivity"
             android:exported="false"
             android:label="@string/title_activity_settings" />
