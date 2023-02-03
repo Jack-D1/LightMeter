@@ -18,6 +18,30 @@ class SettingsActivity : AppCompatActivity() {
         }
 
 
+        val ISOButton: MaterialButton = findViewById(R.id.manage_iso_button)
+        ISOButton.setOnClickListener {
+            val intent = Intent(this@SettingsActivity, CustomValuesActivity::class.java)
+            intent.putExtra("Camera", CameraObject)
+            intent.putExtra("Edit", "ISO")
+            startActivity(intent)
+        }
+
+        val ShutterButton: MaterialButton = findViewById(R.id.manage_shutter_button)
+        ShutterButton.setOnClickListener {
+            val intent = Intent(this@SettingsActivity, CustomValuesActivity::class.java)
+            intent.putExtra("Camera", CameraObject)
+            intent.putExtra("Edit", "Shutter Speed")
+            startActivity(intent)
+        }
+
+        val ApertureButton: MaterialButton = findViewById(R.id.manage_aperture_button)
+        ApertureButton.setOnClickListener {
+            val intent = Intent(this@SettingsActivity, CustomValuesActivity::class.java)
+            intent.putExtra("Camera", CameraObject)
+            intent.putExtra("Edit", "Aperture")
+            startActivity(intent)
+        }
+
         val returnButton: MaterialButton = findViewById(R.id.return_to_meter_button)
         returnButton.setOnClickListener {
             val intent = Intent(this@SettingsActivity, MainActivity::class.java)
