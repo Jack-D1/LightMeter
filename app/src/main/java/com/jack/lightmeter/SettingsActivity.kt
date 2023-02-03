@@ -49,7 +49,7 @@ class SettingsActivity : AppCompatActivity() {
             intent.putExtra("Edit", "Calibration")
             startActivity(intent)
         }
-        
+
 
         val returnButton: MaterialButton = findViewById(R.id.return_to_meter_button)
         returnButton.setOnClickListener {
