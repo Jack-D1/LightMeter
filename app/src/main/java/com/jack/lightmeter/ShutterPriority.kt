@@ -81,7 +81,6 @@ class ShutterPriority : AppCompatActivity(), SensorEventListener {
 
     override fun onResume() {
         super.onResume()
-        System.out.println("Resumed Shutter Priority")
         sensorManager?.registerListener(this,sensor,SensorManager.SENSOR_DELAY_FASTEST)
     }
 
