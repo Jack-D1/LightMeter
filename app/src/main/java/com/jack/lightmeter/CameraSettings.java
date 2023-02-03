@@ -13,9 +13,14 @@ public class CameraSettings implements Serializable {
     private Integer ISO;
     private Integer CalibrationConstant;
     private double EV;
+    // This HashMap and the subsequent two ArrayLists store the valid predefined Shutter Speeds, ISOs and Apertures
     private HashMap<String, Float> ValidShutterSpeeds;
     private ArrayList<Float> ValidApertures;
     private ArrayList<Integer> ValidISOs;
+    // This HashMap and the subsequent two ArrayLists store the user defined Shutter Speeds, Apertures and ISOs
+    private HashMap<String, Float> UserDefinedShutterSpeeds;
+    private ArrayList<Float> UserDefinedApertures;
+    private ArrayList<Integer> UserDefinedISOs;
     public Integer getCalibrationConstant() {
         return CalibrationConstant;
     }
@@ -174,4 +179,16 @@ public class CameraSettings implements Serializable {
         return list.get(index);
     }
 
+    //This function reads in from the disk the user defined shutter speed, apertures and isos
+    // Returns 0 on success, 1 on error
+    private int ReadStoredUserValues(){
+        //TODO: ReadFrom Disk the UserDefined values
+        return 0;
+    }
+    // This function writes the use defined values to the disk
+    // Returns 0 on success, 1 on error 
+    private int WriteUserValues(){
+        //TODO: Write to the Disk the UserDefined values
+        return 0;
+    }
 }
