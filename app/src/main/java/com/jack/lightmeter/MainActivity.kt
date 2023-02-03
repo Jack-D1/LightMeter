@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_main)
-        //Get Camera Settings object from Aperture Priority activity
+        //Get Camera Settings object from other activity
         CameraObject = if(intent.extras?.getSerializable("Camera") != null){
             intent.extras?.getSerializable("Camera") as CameraSettings?
         }else {

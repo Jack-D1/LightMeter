@@ -9,14 +9,20 @@
     <string name="change_mode_to_aperture_p">Switch to Aperture Priority</string>
     <string name="settings">Settings</string>
     <string name="show_shutter_dd">Click to Choose Shutter Speed</string>
-    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_settings">Settings</string>
+    <!--    Strings for settings Menu-->
+    <string name="manage_iso_string">Manage Custom ISO Values</string>
+    <string name="manage_iso_switch">Click to Edit ISO Values</string>
 
-    <!-- Preference Titles -->
-    <string name="values_header">Custom Values</string>
-    <string name="calibration_header">Calibration Values</string>
+    <string name="manage_shutter_string">Manage Custom Shutter Speeds</string>
+    <string name="manage_shutter_switch">Click to Edit Shutter Speed Values</string>
 
-    <string name="calibration_constant">Calibration Constant</string>
-    <string name="iso_title">ISO</string>
-    <string name="add_iso">Add a Custom ISO Value</string>
-    <string name="edit_cc">Edit Calibration Constant</string>
+    <string name="manage_aperture_string">Manage Custom Aperture Values</string>
+    <string name="manage_aperture_switch">Click to Edit Custom Aperture Values</string>
+
+    <string name="manage_calibration_string">Manage Calibration Constant</string>
+    <string name="manage_calibration_switch">Click to Edit Calibration Constant</string>
+
+    <string name="return_to_meter_string">Return to Metering</string>
+    <string name="return_to_meter_switch">Click to Return to Metering</string>
 </resources>
