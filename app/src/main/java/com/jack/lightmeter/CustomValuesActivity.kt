@@ -17,7 +17,7 @@ class CustomValuesActivity : AppCompatActivity() {
         val ValuesToEdit = if(intent.getStringExtra("Edit") != null){
             intent.getStringExtra("Edit")
         }else {
-            "ISO"
+            "Something Went Wrong"
         }
         if(ValuesToEdit != "Calibration"){
             setTitle("Editing Custom "+ ValuesToEdit!! + " Values")
