@@ -42,6 +42,15 @@ class SettingsActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val CalibrationButton: MaterialButton = findViewById(R.id.manage_calibration_button)
+        CalibrationButton.setOnClickListener {
+            val intent = Intent(this@SettingsActivity, CustomValuesActivity::class.java)
+            intent.putExtra("Camera", CameraObject)
+            intent.putExtra("Edit", "Calibration")
+            startActivity(intent)
+        }
+        
+
         val returnButton: MaterialButton = findViewById(R.id.return_to_meter_button)
         returnButton.setOnClickListener {
             val intent = Intent(this@SettingsActivity, MainActivity::class.java)
