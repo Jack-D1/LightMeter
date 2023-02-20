@@ -24,7 +24,9 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     // EV Text
     var EVText:MaterialTextView?=null
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
+        setTitle(resources.getString(R.string.title_activity_main))
         setContentView(layout.activity_main)
         //Get Camera Settings object from other activity
         CameraObject = if(intent.extras?.getSerializable("Camera") != null){
