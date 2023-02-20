@@ -10,7 +10,14 @@
     <string name="settings">Settings</string>
     <string name="show_shutter_dd">Click to Choose Shutter Speed</string>
 
-    <string name="title_activity_main">LightMeter - Aperture Priority</string>
+    <string name="aperture_prior_title">Aperture Priority</string>
+    <string name="shutter_prior_title">Shutter Priority</string>
+    <string name="setting_title">Settings</string>
+    <string name="aperture_prior_start">Click to enter Aperture Priority</string>
+    <string name="shutter_prior_start">Click to enter Shutter Priority</string>
+    <string name="settings_start">Click to enter Settings</string>
+
+    <string name="title_activity_aperture">LightMeter - Aperture Priority</string>
     <string name="title_activity_shutter">LightMeter - Shutter Priority</string>
     <string name="title_activity_settings">Settings</string>
     <!--    Strings for settings Menu-->
@@ -26,6 +33,6 @@
     <string name="manage_calibration_string">Manage Calibration Constant</string>
     <string name="manage_calibration_switch">Click to Edit Calibration Constant</string>
 
-    <string name="return_to_meter_string">Return to Metering</string>
-    <string name="return_to_meter_switch">Click to Return to Metering</string>
+    <string name="return_to_meter_string">Return to Menu</string>
+    <string name="return_to_meter_switch">Click to Return to Menu</string>
 </resources>

@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textview.MaterialTextView
 
-class ShutterPriority : AppCompatActivity(), SensorEventListener {
+class ShutterPriorityActivity : AppCompatActivity(), SensorEventListener {
     var sensorManager: SensorManager?= null
     var sensor: Sensor?=null
     var CameraObject:CameraSettings?=null
@@ -66,14 +66,14 @@ class ShutterPriority : AppCompatActivity(), SensorEventListener {
 
         val button:Button = findViewById(R.id.ChangeSwitch)
         button.setOnClickListener{
-            val intent = Intent(this@ShutterPriority, MainActivity::class.java)
+            val intent = Intent(this@ShutterPriorityActivity, AperturePriorityActivity::class.java)
             intent.putExtra("Camera",CameraObject)
             startActivity(intent)
         }
 
         val settingsButton:MaterialButton = findViewById(R.id.SettingsSwitch)
         settingsButton.setOnClickListener {
-            val intent = Intent(this@ShutterPriority, SettingsActivity::class.java)
+            val intent = Intent(this@ShutterPriorityActivity, SettingsActivity::class.java)
             intent.putExtra("Camera", CameraObject)
             startActivity(intent)
         }

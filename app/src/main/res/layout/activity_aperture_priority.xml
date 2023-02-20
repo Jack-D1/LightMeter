@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShutterPriorityActivity">
-
-
+    tools:context=".AperturePriorityActivity">
     <LinearLayout
         android:id="@+id/mainLayoutButtonMenus"
         android:layout_width="match_parent"
@@ -69,14 +67,14 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="16dp"
-                    android:text="@string/shutter_string" />
+                    android:text="@string/aperture_string" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/expose_shutter_dropdown_button"
+                    android:id="@+id/expose_aperture_dropdown_button"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/show_shutter_dd" />
+                    android:text="@string/show_aperture_dd" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
@@ -146,7 +144,7 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/ApertureReading"
+                    android:id="@+id/ShutterSpeedReading"
                     style="@style/TextAppearance.MaterialComponents.Headline4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -186,7 +184,7 @@
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/change_mode_to_aperture_p" />
+                    android:text="@string/change_mode_to_shutter_p" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 

@@ -17,6 +17,10 @@
         android:theme="@style/Theme.LightMeter"
         tools:targetApi="31">
         <activity
+            android:name=".AperturePriorityActivity"
+            android:exported="false"
+            android:label="@string/title_activity_aperture"/>
+        <activity
             android:name=".CustomValuesActivity"
             android:exported="false" />
         <activity
@@ -25,18 +29,15 @@
             android:label="@string/title_activity_settings" />
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
         </activity>
         <activity
-            android:name=".ShutterPriority"
+            android:name=".ShutterPriorityActivity"
             android:exported="false"
             android:label="@string/title_activity_shutter">
             <intent-filter>
