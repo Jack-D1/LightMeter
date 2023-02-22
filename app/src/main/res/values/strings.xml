@@ -35,4 +35,10 @@
 
     <string name="return_to_meter_string">Return to Menu</string>
     <string name="return_to_meter_switch">Click to Return to Menu</string>
+
+    <string name="add_values">Add Values</string>
+    <string name="add_custom_value">Add Custom Value</string>
+    <string name="delete_values">Delete Values</string>
+    <string name="delete_values_button">Click to Delete a Custom Value</string>
+    <string name="current_cust_val">Current Custom Values</string>
 </resources>
