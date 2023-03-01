@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         }else {
             CameraSettings(0f, 1.0f, 50);
         }
-
+        CameraObject?.context = this
         val apertureButton:MaterialButton = findViewById(id.aperture_start_button)
         apertureButton.setOnClickListener{
             val intent = Intent(this@MainActivity, AperturePriorityActivity::class.java)

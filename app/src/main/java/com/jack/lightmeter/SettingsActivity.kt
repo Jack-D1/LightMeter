@@ -16,7 +16,7 @@ class SettingsActivity : AppCompatActivity() {
         }else {
             CameraSettings(0f, 1.0f, 50);
         }
-
+        CameraObject?.context = this
 
         val ISOButton: MaterialButton = findViewById(R.id.manage_iso_button)
         ISOButton.setOnClickListener {

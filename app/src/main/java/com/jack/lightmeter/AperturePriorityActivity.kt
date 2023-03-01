@@ -31,6 +31,7 @@ class AperturePriorityActivity : AppCompatActivity(), SensorEventListener {
         }else {
             CameraSettings(0f, 1.0f, 50);
         }
+        CameraObject?.context = this
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         sensor = sensorManager?.getDefaultSensor(Sensor.TYPE_LIGHT)
         ShutterSpeedText = findViewById(R.id.ShutterSpeedReading)

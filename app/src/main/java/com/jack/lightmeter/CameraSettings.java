@@ -1,6 +1,18 @@
 package com.jack.lightmeter;
 
+import android.content.Context;
+import android.os.Environment;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -9,6 +21,7 @@ import java.util.HashMap;
 
 public class CameraSettings implements Serializable {
     private Float ShutterSpeed;
+    private transient Context context;
     private Float Aperture;
     private Integer ISO;
     private Integer CalibrationConstant;
@@ -69,6 +82,16 @@ public class CameraSettings implements Serializable {
             put("1/4000", 0.00025f);
             put("1/8000", 0.000125f);
         }};
+         this.UserDefinedApertures = new ArrayList<>();
+         this.ReadStoredUserValues();
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
     }
 
     public ArrayList<Integer> getValidISOs() {
