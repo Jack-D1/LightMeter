@@ -79,7 +79,7 @@ class CustomValuesActivity : AppCompatActivity() {
                 var ValuesAperture = ""
                 CameraObject?.userDefinedApertures?.forEach{
                     ValuesAperture += "f/" + it.toString() + "\n"
-                    popup?.menu?.add("f/" + it.toString())
+                    popup?.menu?.add(it.toString())
                 }
                 currentValues?.text = if(ValuesAperture != ""){
                     ValuesAperture
@@ -91,7 +91,7 @@ class CustomValuesActivity : AppCompatActivity() {
                 var ValuesShutter = ""
                 CameraObject?.userDefinedShutterSpeeds?.forEach{
                     ValuesShutter+= it.key + "s\n"
-                    popup?.menu?.add(it.key + "s")
+                    popup?.menu?.add(it.key)
                 }
                 currentValues?.text = if(ValuesShutter != ""){
                     ValuesShutter
@@ -103,7 +103,7 @@ class CustomValuesActivity : AppCompatActivity() {
                 var ValuesISO = ""
                 CameraObject?.userDefinedISOs?.forEach {
                     ValuesISO += "ISO " + it.toString() + "\n"
-                    popup?.menu?.add("ISO " + it.toString())
+                    popup?.menu?.add(it.toString())
                 }
                 currentValues?.text = if(ValuesISO != ""){
                     ValuesISO
