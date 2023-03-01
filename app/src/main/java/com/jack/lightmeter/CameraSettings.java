@@ -111,7 +111,12 @@ public class CameraSettings implements Serializable {
     }
 
     public void setShutterSpeed(String shutterSpeed) {
-        this.ShutterSpeed = this.ValidShutterSpeeds.get(shutterSpeed);
+        if(this.ValidShutterSpeeds.containsKey(shutterSpeed)){
+            this.ShutterSpeed = this.ValidShutterSpeeds.get(shutterSpeed);
+        }else if(this.UserDefinedShutterSpeeds.containsKey(shutterSpeed)){
+            this.ShutterSpeed = this.UserDefinedShutterSpeeds.get(shutterSpeed);
+        }
+
     }
 
     public Float getAperture() {
