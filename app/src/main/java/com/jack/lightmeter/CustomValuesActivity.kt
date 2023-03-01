@@ -1,5 +1,6 @@
 package com.jack.lightmeter
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
@@ -48,6 +49,12 @@ class CustomValuesActivity : AppCompatActivity() {
         popup?.setOnMenuItemClickListener { item ->
             deleteChosenValue(item.title.toString())
             true
+        }
+        val returnButton: MaterialButton = findViewById(R.id.return_button)
+        returnButton.setOnClickListener{
+            val intent = Intent(this@CustomValuesActivity, SettingsActivity::class.java)
+            intent.putExtra("Camera",CameraObject)
+            startActivity(intent)
         }
     }
 
