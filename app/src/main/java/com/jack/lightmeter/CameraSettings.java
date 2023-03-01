@@ -97,6 +97,7 @@ public class CameraSettings implements Serializable {
     public ArrayList<Integer> getValidISOs() {
         ArrayList<Integer> isos = new ArrayList<>(this.ValidISOs);
         isos.addAll(this.UserDefinedISOs);
+        Collections.sort(isos);
         return ValidISOs;
     }
 
