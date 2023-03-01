@@ -95,6 +95,8 @@ public class CameraSettings implements Serializable {
     }
 
     public ArrayList<Integer> getValidISOs() {
+        ArrayList<Integer> isos = new ArrayList<>(this.ValidISOs);
+        isos.addAll(this.UserDefinedISOs);
         return ValidISOs;
     }
 
@@ -108,6 +110,30 @@ public class CameraSettings implements Serializable {
 
     public Float getAperture() {
         return Aperture;
+    }
+
+    public HashMap<String, Float> getUserDefinedShutterSpeeds() {
+        return UserDefinedShutterSpeeds;
+    }
+
+    public void setUserDefinedShutterSpeeds(HashMap<String, Float> userDefinedShutterSpeeds) {
+        UserDefinedShutterSpeeds = userDefinedShutterSpeeds;
+    }
+
+    public ArrayList<Integer> getUserDefinedISOs() {
+        return UserDefinedISOs;
+    }
+
+    public void setUserDefinedISOs(ArrayList<Integer> userDefinedISOs) {
+        UserDefinedISOs = userDefinedISOs;
+    }
+
+    public ArrayList<Float> getUserDefinedApertures() {
+        return UserDefinedApertures;
+    }
+
+    public void setUserDefinedApertures(ArrayList<Float> userDefinedApertures) {
+        UserDefinedApertures = userDefinedApertures;
     }
 
     public void setAperture(Float aperture) {
@@ -131,11 +157,18 @@ public class CameraSettings implements Serializable {
     }
 
     public ArrayList<Float> getValidApertures() {
-        return ValidApertures;
+
+        ArrayList<Float> Apertures = new ArrayList<>();
+        Apertures.addAll(this.ValidApertures);
+        Apertures.addAll(this.UserDefinedApertures);
+        Collections.sort(Apertures);
+        return Apertures;
+
     }
 
     public ArrayList<String> getReadableShutterSpeeds(){
         ArrayList<String> readableShutterSpeeds = new ArrayList<String>(this.ValidShutterSpeeds.keySet());
+        readableShutterSpeeds.addAll(this.UserDefinedShutterSpeeds.keySet());
         Collections.sort(readableShutterSpeeds, new Comparator<String>() {
             @Override
             public int compare(String s1, String s2) {
@@ -202,16 +235,149 @@ public class CameraSettings implements Serializable {
         return list.get(index);
     }
 
+    public int AddCustomAperture(Float aperture){
+        this.UserDefinedApertures.add(aperture);
+        return saveAperturesToFile();
+    }
+
+    public int RemoveCustomAperture(Float aperture){
+        this.UserDefinedApertures.remove(aperture);
+        return saveAperturesToFile();
+    }
+
+    public int AddCustomISO(int ISO){
+        this.UserDefinedISOs.add(ISO);
+        return saveISOsToFile();
+    }
+
+    public int RemoveCustomISO(int ISO){
+        this.UserDefinedISOs.remove(ISO);
+        return saveISOsToFile();
+    }
+
+    public int AddCustomShutterSpeed(String shutterSpeed){
+        this.UserDefinedShutterSpeeds.put(shutterSpeed, this.convertShutterSpeedToFloat(shutterSpeed));
+        return saveShutterSpeedsToFile();
+    }
+
+    public int RemoveCustomshutterSpeed(String shutterSpeed){
+        this.UserDefinedShutterSpeeds.remove(shutterSpeed);
+        return saveShutterSpeedsToFile();
+    }
+
+    private int saveShutterSpeedsToFile(){
+        try {
+            String filename = "shutter";
+            StringBuilder contents = new StringBuilder();
+            if(!this.UserDefinedShutterSpeeds.isEmpty()){
+                for (String s: this.UserDefinedShutterSpeeds.keySet()) {
+                    contents.append(s).append("\n");
+                }
+            }
+            try (FileOutputStream fos = context.openFileOutput(filename, Context.MODE_PRIVATE)) {
+                fos.write(contents.toString().getBytes());
+            }
+            return 0;
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+            return 1;
+        }
+    }
+
+    private int saveISOsToFile(){
+        try {
+            String filename = "isos";
+            StringBuilder contents = new StringBuilder();
+            if(!this.UserDefinedISOs.isEmpty()){
+                for (int a: this.UserDefinedISOs) {
+                    contents.append(a).append("\n");
+                }
+            }
+            try (FileOutputStream fos = context.openFileOutput(filename, Context.MODE_PRIVATE)) {
+                fos.write(contents.toString().getBytes());
+            }
+            return 0;
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+            return 1;
+        }
+    }
+    private int saveAperturesToFile(){
+        try {
+            String filename = "apertures";
+            StringBuilder contents = new StringBuilder();
+            if(!this.UserDefinedApertures.isEmpty()){
+                for (Float a: this.UserDefinedApertures) {
+                    contents.append(a.toString()).append("\n");
+                }
+            }
+            try (FileOutputStream fos = context.openFileOutput(filename, Context.MODE_PRIVATE)) {
+                fos.write(contents.toString().getBytes());
+            }
+            return 0;
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+            return 1;
+        }
+    }
+
     //This function reads in from the disk the user defined shutter speed, apertures and isos
     // Returns 0 on success, 1 on error
     private int ReadStoredUserValues(){
-        //TODO: ReadFrom Disk the UserDefined values
+        //Read Apertures First
+        try {
+            FileInputStream fis = context.openFileInput("apertures");
+            InputStreamReader inputStreamReader =
+                    new InputStreamReader(fis, StandardCharsets.UTF_8);
+            StringBuilder stringBuilder = new StringBuilder();
+            try (BufferedReader reader = new BufferedReader(inputStreamReader)) {
+                String line = reader.readLine();
+                while (line != null) {
+                    stringBuilder.append(line).append('\n');
+                    line = reader.readLine();
+                }
+            } catch (IOException e) {
+                // Error occurred when opening raw file for reading.
+                return 1;
+            } finally {
+                String contents = stringBuilder.toString();
+                for (String s: contents.split("\n")) {
+                    this.UserDefinedApertures.add(Float.parseFloat(s));
+
+                }
+            }
+        }catch (IOException e){
+            return 1;
+        }
+        //Read Shutter Speeds last
+        try {
+            FileInputStream fis = context.openFileInput("shutter");
+            InputStreamReader inputStreamReader =
+                    new InputStreamReader(fis, StandardCharsets.UTF_8);
+            StringBuilder stringBuilder = new StringBuilder();
+            try (BufferedReader reader = new BufferedReader(inputStreamReader)) {
+                String line = reader.readLine();
+                while (line != null) {
+                    stringBuilder.append(line).append('\n');
+                    line = reader.readLine();
+                }
+            } catch (IOException e) {
+                // Error occurred when opening raw file for reading.
+                return 1;
+            } finally {
+                String contents = stringBuilder.toString();
+                for (String s: contents.split("\n")) {
+                    this.UserDefinedShutterSpeeds.put(s, this.convertShutterSpeedToFloat(s));
+
+                }
+            }
+        }catch (IOException e){
+            return 1;
+        }
         return 0;
     }
-    // This function writes the use defined values to the disk
-    // Returns 0 on success, 1 on error 
-    private int WriteUserValues(){
-        //TODO: Write to the Disk the UserDefined values
-        return 0;
-    }
+
 }
