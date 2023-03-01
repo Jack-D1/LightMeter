@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Map;
 
 public class CameraSettings implements Serializable {
     private Float ShutterSpeed;
@@ -160,11 +161,28 @@ public class CameraSettings implements Serializable {
     }
 
     public String getFormattedShutterSpeed(){
-        if (this.ShutterSpeed >= 0.5f) {
-            return this.ShutterSpeed.toString() + " Seconds";
-        }else{
-            return "1/" + Math.round(1 / this.ShutterSpeed) + "th of a Second";
+        if(this.ValidShutterSpeeds.containsValue(this.ShutterSpeed)){
+            for (Map.Entry<String, Float> a: this.ValidShutterSpeeds.entrySet()) {
+                if(a.getValue() == this.ShutterSpeed){
+                    if(a.getKey().contains("/")){
+                        return a.getKey() + "th of a Second";
+                    }else{
+                        return a.getKey() + " Seconds";
+                    }
+                }
+            }
+        }else if(this.UserDefinedShutterSpeeds.containsValue(this.ShutterSpeed)){
+            for (Map.Entry<String, Float> a: this.UserDefinedShutterSpeeds.entrySet()) {
+                if(a.getValue() == this.ShutterSpeed){
+                    if(a.getKey().contains("/")){
+                        return a.getKey() + "th of a Second";
+                    }else{
+                        return a.getKey() + " Seconds";
+                    }
+                }
+            }
         }
+        return "";
     }
 
     public ArrayList<Float> getValidApertures() {
