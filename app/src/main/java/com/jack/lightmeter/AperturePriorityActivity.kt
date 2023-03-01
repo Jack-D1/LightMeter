@@ -6,6 +6,7 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
@@ -21,6 +22,9 @@ class AperturePriorityActivity : AppCompatActivity(), SensorEventListener {
     var LuxText: MaterialTextView?=null
     // EV Text
     var EVText: MaterialTextView?=null
+    var AperturePopup:PopupMenu?=null
+    var ISOpopup:PopupMenu?=null
+    var vg:ViewGroup?=null
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -29,7 +33,7 @@ class AperturePriorityActivity : AppCompatActivity(), SensorEventListener {
         CameraObject = if(intent.extras?.getSerializable("Camera") != null){
             intent.extras?.getSerializable("Camera") as CameraSettings?
         }else {
-            CameraSettings(0f, 1.0f, 50);
+            CameraSettings(0f, 1.0f, 50, this);
         }
         CameraObject?.context = this
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
@@ -38,14 +42,12 @@ class AperturePriorityActivity : AppCompatActivity(), SensorEventListener {
         LuxText = findViewById(R.id.text_lux)
         EVText = findViewById(R.id.text_ev)
         val exposeISODropdown = findViewById<MaterialButton>(R.id.expose_iso_dropdown_button)
-        val ISOpopup = PopupMenu(this, exposeISODropdown )
-        for(iso in CameraObject!!.validISOs){
-            ISOpopup.menu.add(iso.toString())
-        }
+        ISOpopup = PopupMenu(this, exposeISODropdown )
+
         exposeISODropdown.setOnClickListener {
-            ISOpopup.show()
+            ISOpopup?.show()
         }
-        ISOpopup.setOnMenuItemClickListener { item ->
+        ISOpopup?.setOnMenuItemClickListener { item ->
             exposeISODropdown.text = "ISO " + item.title
             CameraObject?.iso = item.title.toString().toInt()
             true
@@ -53,37 +55,57 @@ class AperturePriorityActivity : AppCompatActivity(), SensorEventListener {
 
 
         val exposeApertureDropdown = findViewById<MaterialButton>(R.id.expose_aperture_dropdown_button)
-        val AperturePopup = PopupMenu(this, exposeApertureDropdown)
-        for (Aperture in CameraObject!!.validApertures){
-            AperturePopup.menu.add(Aperture.toString())
-        }
+        AperturePopup = PopupMenu(this, exposeApertureDropdown)
+
         exposeApertureDropdown.setOnClickListener {
-            AperturePopup.show()
+            AperturePopup?.show()
         }
-        AperturePopup.setOnMenuItemClickListener { item ->
+        AperturePopup?.setOnMenuItemClickListener { item ->
             exposeApertureDropdown.text = "f/" + item.title
             CameraObject?.aperture = item.title.toString().toFloat()
             true
         }
 
 
+        vg = findViewById<ViewGroup>(R.id.MainLayout)
         val button: MaterialButton = findViewById(R.id.ChangeSwitch)
         button.setOnClickListener{
             val intent = Intent(this@AperturePriorityActivity, ShutterPriorityActivity::class.java)
             intent.putExtra("Camera",CameraObject)
+            vg?.invalidate()
             startActivity(intent)
         }
-
         val settingsButton: MaterialButton = findViewById(R.id.SettingsSwitch)
         settingsButton.setOnClickListener {
             val intent = Intent(this@AperturePriorityActivity, SettingsActivity::class.java)
             intent.putExtra("Camera", CameraObject)
+            vg?.invalidate()
             startActivity(intent)
         }
     }
 
+
+    private fun updatePopups(){
+        CameraObject!!.getValidApertures().forEach{
+            AperturePopup?.menu?.add(it.toString())
+        }
+        CameraObject!!.getValidISOs().forEach{
+            ISOpopup?.menu?.add(it.toString())
+        }
+    }
     override fun onResume() {
         super.onResume()
+        vg = findViewById<ViewGroup>(R.id.MainLayout)
+        vg?.invalidate()
+        CameraObject = if(intent.extras?.getSerializable("Camera") != null){
+            System.out.println("getting from resume")
+            intent.extras?.getSerializable("Camera") as CameraSettings?
+
+        }else {
+            System.out.println("getting from new")
+            CameraSettings(0f, 1.0f, 50, this);
+        }
+        updatePopups()
         sensorManager?.registerListener(this,sensor, SensorManager.SENSOR_DELAY_FASTEST)
     }
 

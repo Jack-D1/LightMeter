@@ -19,7 +19,7 @@ class CustomValuesActivity : AppCompatActivity() {
         CameraObject = if(intent.extras?.getSerializable("Camera") != null){
             intent.extras?.getSerializable("Camera") as CameraSettings?
         }else {
-            CameraSettings(0f, 1.0f, 50);
+            CameraSettings(0f, 1.0f, 50, this);
         }
         CameraObject?.context = this
         ValuesToEdit = if(intent.getStringExtra("Edit") != null){

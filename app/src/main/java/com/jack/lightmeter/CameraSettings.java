@@ -54,7 +54,7 @@ public class CameraSettings implements Serializable {
         this.EV = (Math.log((this.Aperture * this.Aperture) / this.ShutterSpeed) / Math.log(2));
     }
 
-    public CameraSettings(Float shutterSpeed, Float aperture, Integer ISO) {
+    public CameraSettings(Float shutterSpeed, Float aperture, Integer ISO, Context c) {
         this.ShutterSpeed = shutterSpeed;
         this.Aperture = aperture;
         this.ISO = ISO;
@@ -83,6 +83,9 @@ public class CameraSettings implements Serializable {
             put("1/8000", 0.000125f);
         }};
          this.UserDefinedApertures = new ArrayList<>();
+         this.UserDefinedISOs = new ArrayList<>();
+         this.UserDefinedShutterSpeeds = new HashMap<>();
+         this.context = c;
          this.ReadStoredUserValues();
     }
 
@@ -95,11 +98,13 @@ public class CameraSettings implements Serializable {
     }
 
     public ArrayList<Integer> getValidISOs() {
-        ArrayList<Integer> isos = new ArrayList<>(this.ValidISOs);
+        ArrayList<Integer> isos = new ArrayList<>();
+        isos.addAll(this.ValidISOs);
         isos.addAll(this.UserDefinedISOs);
         Collections.sort(isos);
-        return ValidISOs;
+        return isos;
     }
+
 
     public void setValidISOs(ArrayList<Integer> validISOs) {
         ValidISOs = validISOs;
@@ -353,6 +358,32 @@ public class CameraSettings implements Serializable {
         }catch (IOException e){
             return 1;
         }
+        //Read Apertures First
+        try {
+            FileInputStream fis = context.openFileInput("isos");
+            InputStreamReader inputStreamReader =
+                    new InputStreamReader(fis, StandardCharsets.UTF_8);
+            StringBuilder stringBuilder = new StringBuilder();
+            try (BufferedReader reader = new BufferedReader(inputStreamReader)) {
+                String line = reader.readLine();
+                while (line != null) {
+                    stringBuilder.append(line).append('\n');
+                    line = reader.readLine();
+                }
+            } catch (IOException e) {
+                // Error occurred when opening raw file for reading.
+                return 1;
+            } finally {
+                String contents = stringBuilder.toString();
+                for (String s: contents.split("\n")) {
+                    this.UserDefinedISOs.add(Integer.parseInt(s));
+
+                }
+            }
+        }catch (IOException e){
+            return 1;
+        }
+
         //Read Shutter Speeds last
         try {
             FileInputStream fis = context.openFileInput("shutter");

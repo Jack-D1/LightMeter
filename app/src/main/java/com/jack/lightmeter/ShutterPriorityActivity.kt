@@ -29,7 +29,7 @@ class ShutterPriorityActivity : AppCompatActivity(), SensorEventListener {
         CameraObject = if(intent.extras?.getSerializable("Camera") != null){
             intent.extras?.getSerializable ("Camera") as CameraSettings?
         }else {
-            CameraSettings(8f,0f,50)
+            CameraSettings(8f,0f,50, this)
         }
         CameraObject?.context = this
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
