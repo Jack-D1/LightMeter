@@ -101,8 +101,8 @@ class CustomValuesActivity : AppCompatActivity() {
             "ISO" -> {
                 var ValuesISO = ""
                 CameraObject?.userDefinedISOs?.forEach {
-                    ValuesISO += "ISO" + it.toString() + "\n"
-                    popup?.menu?.add("ISO" + it.toString())
+                    ValuesISO += "ISO " + it.toString() + "\n"
+                    popup?.menu?.add("ISO " + it.toString())
                 }
                 currentValues?.text = if(ValuesISO != ""){
                     ValuesISO
