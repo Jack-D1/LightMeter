@@ -39,8 +39,8 @@ class ShutterPriorityActivity : AppCompatActivity(), SensorEventListener {
         EVText = findViewById(R.id.text_ev)
         val exposeISODropdown = findViewById<MaterialButton>(R.id.expose_iso_dropdown_button)
         val ISOpopup = PopupMenu(this, exposeISODropdown )
-        for(iso in CameraObject!!.validISOs){
-            ISOpopup.menu.add(iso.toString())
+        CameraObject!!.getValidISOs().forEach{
+            ISOpopup?.menu?.add(it.toString())
         }
         exposeISODropdown.setOnClickListener {
             ISOpopup.show()
@@ -53,8 +53,8 @@ class ShutterPriorityActivity : AppCompatActivity(), SensorEventListener {
 
         val exposeShutterDropdown = findViewById<MaterialButton>(R.id.expose_shutter_dropdown_button)
         val ShutterPopup = PopupMenu(this,exposeShutterDropdown)
-        for(ShutterSpeed in CameraObject!!.readableShutterSpeeds){
-            ShutterPopup.menu.add(ShutterSpeed)
+        CameraObject!!.readableShutterSpeeds.forEach{
+            ShutterPopup.menu.add(it)
         }
         exposeShutterDropdown.setOnClickListener {
             ShutterPopup.show()

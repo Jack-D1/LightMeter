@@ -65,6 +65,12 @@ class AperturePriorityActivity : AppCompatActivity(), SensorEventListener {
             CameraObject?.aperture = item.title.toString().toFloat()
             true
         }
+        CameraObject!!.getValidApertures().forEach{
+            AperturePopup?.menu?.add(it.toString())
+        }
+        CameraObject!!.getValidISOs().forEach{
+            ISOpopup?.menu?.add(it.toString())
+        }
 
 
         vg = findViewById<ViewGroup>(R.id.MainLayout)
@@ -85,27 +91,8 @@ class AperturePriorityActivity : AppCompatActivity(), SensorEventListener {
     }
 
 
-    private fun updatePopups(){
-        CameraObject!!.getValidApertures().forEach{
-            AperturePopup?.menu?.add(it.toString())
-        }
-        CameraObject!!.getValidISOs().forEach{
-            ISOpopup?.menu?.add(it.toString())
-        }
-    }
     override fun onResume() {
         super.onResume()
-        vg = findViewById<ViewGroup>(R.id.MainLayout)
-        vg?.invalidate()
-        CameraObject = if(intent.extras?.getSerializable("Camera") != null){
-            System.out.println("getting from resume")
-            intent.extras?.getSerializable("Camera") as CameraSettings?
-
-        }else {
-            System.out.println("getting from new")
-            CameraSettings(0f, 1.0f, 50, this);
-        }
-        updatePopups()
         sensorManager?.registerListener(this,sensor, SensorManager.SENSOR_DELAY_FASTEST)
     }
 
