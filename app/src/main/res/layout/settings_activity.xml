@@ -91,35 +91,7 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView4"
-        style="?attr/materialCardViewElevatedStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <com.google.android.material.textview.MaterialTextView
-                style="@style/TextAppearance.MaterialComponents.Headline6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="16dp"
-                android:text="@string/manage_calibration_string" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/manage_calibration_button"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/manage_calibration_switch" />
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView5"
         style="?attr/materialCardViewElevatedStyle"
