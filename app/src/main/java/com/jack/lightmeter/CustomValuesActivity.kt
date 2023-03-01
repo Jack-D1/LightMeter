@@ -33,6 +33,7 @@ class CustomValuesActivity : AppCompatActivity() {
 
         currentValues = findViewById(R.id.current_custom_values)
         deleteDropdownButton = findViewById(R.id.delete_values_button)
+        popup = PopupMenu(this, deleteDropdownButton)
         updateDropdownAndShown()
         val add_value_button: MaterialButton = findViewById(R.id.add_value_button)
         val enteredTextBox:TextInputLayout = findViewById(R.id.textField)
@@ -41,7 +42,7 @@ class CustomValuesActivity : AppCompatActivity() {
             addCustomValues(inputText)
             enteredTextBox.editText?.text?.clear()
         }
-        popup = PopupMenu(this, deleteDropdownButton)
+
         deleteDropdownButton?.setOnClickListener {
             popup?.show()
         }
