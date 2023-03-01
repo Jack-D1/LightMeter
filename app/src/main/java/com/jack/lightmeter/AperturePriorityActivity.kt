@@ -24,7 +24,6 @@ class AperturePriorityActivity : AppCompatActivity(), SensorEventListener {
     var EVText: MaterialTextView?=null
     var AperturePopup:PopupMenu?=null
     var ISOpopup:PopupMenu?=null
-    var vg:ViewGroup?=null
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -73,19 +72,16 @@ class AperturePriorityActivity : AppCompatActivity(), SensorEventListener {
         }
 
 
-        vg = findViewById<ViewGroup>(R.id.MainLayout)
         val button: MaterialButton = findViewById(R.id.ChangeSwitch)
         button.setOnClickListener{
             val intent = Intent(this@AperturePriorityActivity, ShutterPriorityActivity::class.java)
             intent.putExtra("Camera",CameraObject)
-            vg?.invalidate()
             startActivity(intent)
         }
         val settingsButton: MaterialButton = findViewById(R.id.SettingsSwitch)
         settingsButton.setOnClickListener {
             val intent = Intent(this@AperturePriorityActivity, SettingsActivity::class.java)
             intent.putExtra("Camera", CameraObject)
-            vg?.invalidate()
             startActivity(intent)
         }
     }
