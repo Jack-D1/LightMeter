@@ -210,7 +210,9 @@ public class CameraSettings implements Serializable {
         Float ts;
         ts = (((this.Aperture * this.Aperture) * this.CalibrationConstant)) / (Lux * this.ISO);
         // Update local shutter speed & Get the closest valid shutter speed, divide it into one for the fractional form
-        this.ShutterSpeed = this.getClosestValue(new ArrayList<Float>(this.ValidShutterSpeeds.values()), ts);
+        ArrayList<Float> AllShutterSpeeds = new ArrayList<Float>(this.ValidShutterSpeeds.values());
+        AllShutterSpeeds.addAll(this.UserDefinedShutterSpeeds.values());
+        this.ShutterSpeed = this.getClosestValue(AllShutterSpeeds, ts);
         // Update local EV
         this.updateEV();
     }
@@ -221,7 +223,9 @@ public class CameraSettings implements Serializable {
         Double aper;
         aper = Math.sqrt(this.ShutterSpeed * (lux * this.ISO / this.CalibrationConstant));
         // Update local Aperture & get closest valid aperture
-        this.Aperture = this.getClosestValue(this.ValidApertures, aper.floatValue());
+        ArrayList<Float> AllApertures = new ArrayList<Float>(this.ValidApertures);
+        AllApertures.addAll(this.UserDefinedApertures);
+        this.Aperture = this.getClosestValue(AllApertures, aper.floatValue());
         // Update local EV
         this.updateEV();
     }
