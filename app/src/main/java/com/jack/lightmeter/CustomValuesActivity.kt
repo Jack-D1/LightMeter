@@ -1,7 +1,10 @@
 package com.jack.lightmeter
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputFilter
+import android.text.Spanned
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
@@ -37,11 +40,60 @@ class CustomValuesActivity : AppCompatActivity() {
         updateDropdownAndShown()
         val add_value_button: MaterialButton = findViewById(R.id.add_value_button)
         val enteredTextBox:TextInputLayout = findViewById(R.id.textField)
+
+
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.dialogue_popup)
+
+        val title = dialog.findViewById<MaterialTextView>(R.id.dialogue_title)
+        val closeButton = dialog.findViewById<MaterialButton>(R.id.dialogue_close_button)
+
+        title.text = "Dialog Title"
+
+        closeButton.setOnClickListener {
+            dialog.dismiss()
+        }
+
+
+
+
+
+
         add_value_button.setOnClickListener {
             val inputText = enteredTextBox.editText?.text.toString()
             addCustomValues(inputText)
             enteredTextBox.editText?.text?.clear()
+            dialog.show()
         }
+
+
+
+
+
+        enteredTextBox.editText?.setHint("Enter aperture value, ISO value or shutter speed")
+
+        enteredTextBox.editText?.filters = arrayOf<InputFilter>(object : InputFilter {
+            override fun filter(
+                source: CharSequence?,
+                start: Int,
+                end: Int,
+                dest: Spanned?,
+                dstart: Int,
+                dend: Int
+            ): CharSequence? {
+
+                // Only allow digits, dot, and forward slash
+                for (i in start until end) {
+                    if (!Character.isDigit(source?.get(i)!!) && source[i] != '.' && source[i] != '/') {
+                        return ""
+                    }
+                }
+                return null
+            }
+        })
+
+
+
 
         deleteDropdownButton?.setOnClickListener {
             popup?.show()
