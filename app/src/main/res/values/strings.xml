@@ -41,4 +41,5 @@
     <string name="delete_values">Delete Values</string>
     <string name="delete_values_button">Click to Delete a Custom Value</string>
     <string name="current_cust_val">Current Custom Values</string>
+    <string name="close_dialogue">Ok</string>
 </resources>
