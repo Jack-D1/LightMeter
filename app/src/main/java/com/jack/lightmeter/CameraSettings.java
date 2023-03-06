@@ -269,6 +269,9 @@ public class CameraSettings implements Serializable {
     }
 
     public int AddCustomAperture(Float aperture){
+        if(this.ValidApertures.contains(aperture) || this.UserDefinedApertures.contains(aperture)){
+            return 2;
+        }
         this.UserDefinedApertures.add(aperture);
         return saveAperturesToFile();
     }
@@ -279,6 +282,9 @@ public class CameraSettings implements Serializable {
     }
 
     public int AddCustomISO(int ISO){
+        if(this.getValidISOs().contains(ISO) || this.UserDefinedISOs.contains(ISO)){
+            return 2;
+        }
         this.UserDefinedISOs.add(ISO);
         return saveISOsToFile();
     }
@@ -289,6 +295,9 @@ public class CameraSettings implements Serializable {
     }
 
     public int AddCustomShutterSpeed(String shutterSpeed){
+        if(this.ValidShutterSpeeds.containsKey(shutterSpeed) || this.UserDefinedShutterSpeeds.containsKey(shutterSpeed)){
+            return 2;
+        }
         this.UserDefinedShutterSpeeds.put(shutterSpeed, this.convertShutterSpeedToFloat(shutterSpeed));
         return saveShutterSpeedsToFile();
     }
