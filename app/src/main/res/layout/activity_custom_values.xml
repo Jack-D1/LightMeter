@@ -84,6 +84,13 @@
                 android:text="@string/delete_values_button" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView3"
         style="?attr/materialCardViewElevatedStyle"
@@ -104,15 +111,14 @@
                 android:layout_gravity="center"
                 android:layout_margin="16dp"
                 android:text="@string/current_cust_val" />
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/current_custom_values"
-                style="@style/TextAppearance.MaterialComponents.Headline6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="16dp"
-                 />
-
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/current_custom_values"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="16dp"
+                    />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
     <com.google.android.material.card.MaterialCardView
@@ -144,5 +150,6 @@
                 android:text="@string/return_to_meter_switch" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
-
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
