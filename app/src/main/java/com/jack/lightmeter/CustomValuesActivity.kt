@@ -83,7 +83,7 @@ class CustomValuesActivity : AppCompatActivity() {
                     title.text = "Read/Write Error when saving, please try again"
                 }
                 2 -> {
-                    title.text = "Other error, please try again"
+                    title.text = "Cannot find the value to delete. Please restart the App and try again"
                 }
             }
             updateDropdownAndShown()
