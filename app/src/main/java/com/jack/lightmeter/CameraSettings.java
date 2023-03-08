@@ -277,6 +277,9 @@ public class CameraSettings implements Serializable {
     }
 
     public int RemoveCustomAperture(Float aperture){
+        if(!this.UserDefinedApertures.contains(aperture)){
+            return 2;
+        }
         this.UserDefinedApertures.remove(aperture);
         return saveAperturesToFile();
     }
@@ -290,6 +293,9 @@ public class CameraSettings implements Serializable {
     }
 
     public int RemoveCustomISO(int ISO){
+        if(!this.UserDefinedISOs.contains(ISO)){
+            return 2;
+        }
         this.UserDefinedISOs.remove(ISO);
         return saveISOsToFile();
     }
@@ -303,6 +309,9 @@ public class CameraSettings implements Serializable {
     }
 
     public int RemoveCustomshutterSpeed(String shutterSpeed){
+        if(!this.UserDefinedShutterSpeeds.containsKey(shutterSpeed)){
+            return 2;
+        }
         this.UserDefinedShutterSpeeds.remove(shutterSpeed);
         return saveShutterSpeedsToFile();
     }
