@@ -6,7 +6,6 @@ on:
      - release
    tags:
      - "v*"
-
 jobs:
  apk:
    name: Generate APK
