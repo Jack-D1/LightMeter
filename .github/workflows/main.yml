@@ -18,6 +18,8 @@ jobs:
        with:
          distribution: temurin
          java-version: "11"
+     - name: Setup Android SDK
+       uses: amyu/setup-android@v2
      - name: Set execution flag for gradlew
        run: chmod +x gradlew
      - name: Build APK
