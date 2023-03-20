@@ -23,7 +23,32 @@ class InstrumentedTest {
         CameraObject = CameraSettings(0f, 1.0f, 50, instrumentationContext);
     }
     @Test
-    fun checkCmaeraObjectNotNull() {
+    fun checkCameraObjectNotNull() {
         assertNotEquals(null, this.CameraObject)
+    }
+
+    @Test
+    fun UserDefinedShouldBeEmpty(){
+        assertEquals(0,this.CameraObject?.userDefinedISOs?.size)
+        assertEquals(0, this.CameraObject?.userDefinedApertures?.size)
+        assertEquals(0, this.CameraObject?.userDefinedShutterSpeeds?.size)
+    }
+
+    @Test
+    fun RemovingNonExistentValues(){
+        assertEquals(2, this.CameraObject?.RemoveCustomAperture(0.99f))
+        assertEquals(2, this.CameraObject?.RemoveCustomISO(1))
+        assertEquals(2, this.CameraObject?.RemoveCustomshutterSpeed("1/16000"))
+    }
+
+    @Test
+    fun CheckAddAndRemove(){
+        assertEquals(0, this.CameraObject?.AddCustomAperture(0.95f))
+        assertEquals(0, this.CameraObject?.AddCustomISO(5))
+        assertEquals(0, this.CameraObject?.AddCustomShutterSpeed("1/16000"))
+
+        assertEquals(0, this.CameraObject?.RemoveCustomAperture(0.95f))
+        assertEquals(0, this.CameraObject?.RemoveCustomISO(5))
+        assertEquals(0,this.CameraObject?.RemoveCustomshutterSpeed("1/16000"))
     }
 }
