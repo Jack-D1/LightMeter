@@ -296,7 +296,7 @@ public class CameraSettings implements Serializable {
         if(!this.UserDefinedISOs.contains(ISO)){
             return 2;
         }
-        this.UserDefinedISOs.remove(ISO);
+        this.UserDefinedISOs.remove(Integer.valueOf(ISO));
         return saveISOsToFile();
     }
 
