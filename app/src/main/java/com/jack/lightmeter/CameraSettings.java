@@ -395,9 +395,11 @@ public class CameraSettings implements Serializable {
                 return 1;
             } finally {
                 String contents = stringBuilder.toString();
-                for (String s: contents.split("\n")) {
-                    this.UserDefinedApertures.add(Float.parseFloat(s));
+                if(!contents.isEmpty()) {
+                    for (String s : contents.split("\n")) {
+                        this.UserDefinedApertures.add(Float.parseFloat(s));
 
+                    }
                 }
             }
         }catch (IOException e){
@@ -420,9 +422,11 @@ public class CameraSettings implements Serializable {
                 return 1;
             } finally {
                 String contents = stringBuilder.toString();
-                for (String s: contents.split("\n")) {
-                    this.UserDefinedISOs.add(Integer.parseInt(s));
+                if(!contents.isEmpty()) {
+                    for (String s : contents.split("\n")) {
+                        this.UserDefinedISOs.add(Integer.parseInt(s));
 
+                    }
                 }
             }
         }catch (IOException e){
@@ -446,9 +450,11 @@ public class CameraSettings implements Serializable {
                 return 1;
             } finally {
                 String contents = stringBuilder.toString();
-                for (String s: contents.split("\n")) {
-                    this.UserDefinedShutterSpeeds.put(s, this.convertShutterSpeedToFloat(s));
+                if(!contents.isEmpty()) {
+                    for (String s : contents.split("\n")) {
+                        this.UserDefinedShutterSpeeds.put(s, this.convertShutterSpeedToFloat(s));
 
+                    }
                 }
             }
         }catch (IOException e){
