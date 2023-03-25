@@ -51,19 +51,23 @@ class CustomValuesActivity : AppCompatActivity() {
 
         add_value_button.setOnClickListener {
             val inputText = enteredTextBox.editText?.text.toString()
-            when(addCustomValues(inputText)){
-                0 -> {
-                    title.text = "Value Added Successfully"
+            if(inputText.isNotEmpty()){
+                when(addCustomValues(inputText)) {
+                    0 -> {
+                        title.text = "Value Added Successfully"
+                    }
+                    1 -> {
+                        title.text = "Read/Write Error When Saving Value, please try again"
+                    }
+                    2 -> {
+                        title.text = "Value already exists, nothing added"
+                    }
+                    3 -> {
+                        title.text = "Not a valid value, please try again"
+                    }
                 }
-                1 -> {
-                    title.text = "Read/Write Error When Saving Value, please try again"
-                }
-                2 -> {
-                    title.text = "Value already exists, nothing added"
-                }
-                3 -> {
-                    title.text = "Not a valid value, please try again"
-                }
+            }else {
+                title.text = "Cannot submit an empty value"
             }
             updateDropdownAndShown()
             enteredTextBox.editText?.text?.clear()
